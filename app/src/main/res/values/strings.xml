@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gentse Feesten</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_data">DataActivity</string>
+    <string name="title_activity_categorie">CategorieActivity</string>
+    <string name="title_activity_locatie">LocatieActivity</string>
+    <string name="title_activity_tijdstip">TijdstipActivity</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="verkorte_dag_notatie">15/07</string>
+    <string name="categorie">Categorie</string>
+    <string name="locatie">Locatie</string>
+    <string name="tijdstip">Tijdstip</string>
+    <string name="terug">Terug</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="startuur">00:00</string>
+    <string name="title_activity_event_detail">EventDetailActivity</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_parking">ParkingActivity</string>
+    <string name="parking_naam">parking naam</string>
+    <string name="parking_adres">parking adres</string>
+    <string name="bezetting">bezetting</string>
+    <string name="info_omschrijving">Applicatie over de Gentse Feesten 2016.\n\nGemaakt met Android Studio in de programmeertaal Java.
+                                    \n\nMet dank aan het Open Data portaal van de Stad Gent voor het gebruik van de open datasets, te bereiken op\nhttp://data.gent.be/
+                                    \n\nIk ben niet verantwoordelijk voor enige ontbrekende inhoud.</string>
+    <string name="info_davy_gevaert">Gemaakt door Davy Gevaert</string>
+    <string name="info_bezigheid">Hobbyist-Developer</string>
+    <string name="info_sourcecode">Sourcecode Android :</string>
+    <string name="tekst">tekst</string>
+    <string name="titel">titel</string>
+    <string name="omschrijving">omschrijving</string>
+    <string name="info_categorie">Categorie :</string>
+    <string name="info_adres">Adres :</string>
+    <string name="info_organisatie">Organisatie :</string>
+    <string name="info_route">Route :</string>
+    <string name="website">Website :</string>
+    <string name="prijs">Prijs :</string>
+    <string name="extra_info_prijs">Extra info :</string>
+    <string name="title_activity_info_gent">InfoGentActivity</string>
+    <string name="info_gent">09 210 10 10\n\nAlle dagen van de Gentse feesten van 08:00 tot 19:00 uur voor alle vragen en meldingen.</string>
+
+</resources>

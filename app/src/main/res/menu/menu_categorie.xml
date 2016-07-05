@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="be.davygevaert.gentsefeesten.CategorieActivity">
+
+    <item
+        android:id="@+id/action_close_category"
+        android:icon="@drawable/ic_close_white_24dp"
+        android:orderInCategory="100"
+        android:title="refresh"
+        app:showAsAction="always" />
+
+</menu>

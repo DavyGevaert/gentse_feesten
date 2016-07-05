@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- subclass theme -->
+    <!-- Base application theme. -->
+    <style name="MaterialTheme" parent="ParentMaterialTheme">
+        <!-- Customise your theme here -->
+    </style>
+
+    <!-- superclass theme -->
+    <style name="ParentMaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Parent them for all Pre-Lollipop and Lollipop above versions i.e. For all devices -->
+        <!-- colorPrimary is the color attached to Toolbar -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- colorPrimary is the color attached to the StatusBar (this is above the Toolbar) -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Enable window content transition -->
+        <!-- <item name="android:windowContentTransitions">true</item> -->
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- android:textColorPrimary is the text color of Toolbar Title -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!-- android:textColorSecondary is the color of the overflow menu (3 dots icon) and color of Navigation Drawer icon -->
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Text color of Overflow Menu items -->
+        <item name="android:textColorPrimary">@color/grey_500</item>
+        <!-- Background of Overflow Menu -->
+        <item name="android:background">@color/overflowMenuBg</item>
+    </style>
+
+</resources>

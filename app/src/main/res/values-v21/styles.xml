@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MaterialTheme" parent="ParentMaterialTheme">
+        <!-- Customise for only Lollipop and Above Versions features. -->
+
+    </style>
+</resources>

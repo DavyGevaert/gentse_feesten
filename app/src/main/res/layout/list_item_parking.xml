@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    card_view:cardCornerRadius="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/thumbnail"
+            android:src="@drawable/parking_icon"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_parking_naam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parking_naam"
+                android:textColor="@color/material_blue_grey_800"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_parking_adres"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/parking_adres"
+                android:textColor="@color/material_blue_grey_800"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_bezetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bezetting"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/material_blue_grey_800"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                />
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

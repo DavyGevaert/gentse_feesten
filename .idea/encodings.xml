@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_autorenew_white_24dp.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_autorenew_white_24dp.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_autorenew_white_24dp.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/parking_icon.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout-v21/toolbar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_data.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" charset="UTF-8" />
+  </component>
+</project>
+
