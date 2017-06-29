@@ -55,16 +55,22 @@ public class VerkrijgParkingsTask extends AsyncTask<Object, Integer, ArrayList<P
     protected void onPostExecute(ArrayList<Parking> parkingArrayList) {
 
         // for logging purposes
+        /*
         for (int i = 0; i < parkingArrayList.size(); i++) {
-            /*
             Log.i(TAG, "naam parking : " + parkingArrayList.get(i).getName() +
                     ", adres: " + parkingArrayList.get(i).getAddress() + " " + parkingArrayList.get(i).getCity().getName());
-            */
+
         }
+        */
 
-        super.onPostExecute(parkingArrayList);
+        if (parkingArrayList.isEmpty()) {
+            // niks doen indien parkingArrayList null is
+        }
+        else {
+            super.onPostExecute(parkingArrayList);
 
-        delegate.processFinish(parkingArrayList);
+            delegate.processFinish(parkingArrayList);
+        }
     }
 
     private ArrayList<Parking> downloadData(String requestUrl) throws IOException, DownloadException {

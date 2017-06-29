@@ -19,11 +19,9 @@ import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.databank.EventDB;
 import be.davygevaert.gentsefeesten.fragment.NavigationDrawerFragment;
 import be.davygevaert.gentsefeesten.model.Categorie;
-import be.davygevaert.gentsefeesten.model.Data;
 import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.model.Locatie;
 import be.davygevaert.gentsefeesten.tools.Animation;
-import be.davygevaert.gentsefeesten.tools.Tools;
 
 
 public class EventActivity extends AppCompatActivity {
@@ -32,7 +30,7 @@ public class EventActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    private Data mData;
+    private Event mEvent;
     private Categorie mCategorie;
     private Locatie mLocatie;
 
@@ -52,8 +50,8 @@ public class EventActivity extends AppCompatActivity {
 
         eventDB = new EventDB(this);
 
-        mData = getIntent().getParcelableExtra("huidigDataObj");
-        // Log.i(TAG, "dag van gekozen data object is : " + mData.getDay());
+        mEvent = getIntent().getParcelableExtra("huidigEventObj");
+        // Log.i(TAG, "short notatie datum van gekozen event object is : " + mData.getStartDatumShort());
 
         mCategorie = getIntent().getParcelableExtra("huidigCategorieObj");
         // Log.i(TAG, "titel van gekozen categorie object is : " + mCategorie.getCategorieTitel());
@@ -66,38 +64,38 @@ public class EventActivity extends AppCompatActivity {
 
         // instellen toolbar
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Tools.ConvertDay_To_DayStartingWithCap(mData));
+        getSupportActionBar().setTitle(mEvent.getStartDatumShort() + "/2017");
 
         // verkrijg type uit intent vorige activity met bijhorende recycleradapter waar de enum wordt doorgegeven
         type = (Constants.AnimType) getIntent().getSerializableExtra(Constants.KEY_TYPE);
 
         // kijk indien mCategorie object niet null is, indien men een opvraging doet vanuit CategorieActivity
         if (mCategorie != null) {
-            toolbar.setSubtitle(mCategorie.getCategorieTitel());
+            toolbar.setSubtitle(mCategorie.getTitel());
 
             // lokale variabelen om methode getEventsByCategoryAndDate eenvoudiger te lezen
-            int cat_id = Integer.valueOf(mCategorie.getCategorieID());
-            int timestamp = Integer.valueOf(mData.getTimestamp());
+            String cat_id = mCategorie.getCategorieID();
+            String datum_korte_notatie = mEvent.getStartDatumShort();
 
             setUpDrawer();
 
             // events toewijzen per gekozen categorie en datum
-            setUpRecyclerView(eventDB.getEventsByCategoryAndDate(cat_id, timestamp));
+            setUpRecyclerView(eventDB.getEventsByCategoryAndDate(cat_id, datum_korte_notatie));
 
             Animation.setUpAnimation(type, this);
         }
         // kijk indien mLocatie object niet null is, indien men een opvraging doet vanuit LocatieActivity
         else if (mLocatie != null) {
-            toolbar.setSubtitle(mLocatie.getLocatieNaam());
+            toolbar.setSubtitle(mLocatie.getNaam());
 
             // lokale variabelen om methode getEventsByLocationAndDate eenvoudiger te lezen
-            int locatie_id = Integer.valueOf(mLocatie.getLocatieID());
-            int timestamp = Integer.valueOf(mData.getTimestamp());
+            String locatie_id = mLocatie.getLocatieID();
+            String datum_korte_notatie = mEvent.getStartDatumShort();
 
             setUpDrawer();
 
             // events toewijzen per gekozen locatie en datum
-            setUpRecyclerView(eventDB.getEventsByLocationAndDate(locatie_id, timestamp));
+            setUpRecyclerView(eventDB.getEventsByLocationAndDate(locatie_id, datum_korte_notatie));
 
             Animation.setUpAnimation(type, this);
         }
@@ -106,12 +104,12 @@ public class EventActivity extends AppCompatActivity {
             toolbar.setSubtitle("Kies een tijdstip");
 
             // lokale variabelen om methode getEventsByDate eenvoudiger te lezen
-            int timestamp = Integer.valueOf(mData.getTimestamp());
+            String datum_korte_notatie = mEvent.getStartDatumShort();
 
             setUpDrawer();
 
             // events toewijzen per gekozen datum
-            setUpRecyclerView(eventDB.getEventsByDate(timestamp));
+            setUpRecyclerView(eventDB.getEventsByDate(datum_korte_notatie));
 
             Animation.setUpAnimation(type, this);
         }
@@ -121,7 +119,7 @@ public class EventActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Tijdstip);
         // toekennen adapter aan huidige context en lijst categorie-objecten vanuit intent verkregen
-        EventRecyclerAdapter adapter = new EventRecyclerAdapter(this, events, mData, mCategorie);
+        EventRecyclerAdapter adapter = new EventRecyclerAdapter(this, events, mEvent, mCategorie);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -186,4 +184,6 @@ public class EventActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

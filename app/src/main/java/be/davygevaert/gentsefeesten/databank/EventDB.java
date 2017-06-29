@@ -9,7 +9,10 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import be.davygevaert.gentsefeesten.constanten.EventTabel;
+import be.davygevaert.gentsefeesten.model.Categorie;
 import be.davygevaert.gentsefeesten.model.Event;
+import be.davygevaert.gentsefeesten.model.Locatie;
+import be.davygevaert.gentsefeesten.model.Organisator;
 
 /**
  * Created by Davy on 17/06/2016.
@@ -27,72 +30,59 @@ public class EventDB extends SchemaHelper {
         // AANMAAK VAN EEN CONTENTVALUE OBJECT
         ContentValues cv = new ContentValues();
 
-        cv.put(EventTabel.ID, event.getId());
-        cv.put(EventTabel.ACTIVITEIT_ID, event.getActiviteitsId());
-        cv.put(EventTabel.TITEL, event.getTitel());
-        cv.put(EventTabel.MODIFIED, event.getModified());
-        cv.put(EventTabel.OMSCHRIJVING, event.getOmschrijving());
-        cv.put(EventTabel.DATUM, event.getDatum());
-        cv.put(EventTabel.PERIODE, event.getPeriode());
-        cv.put(EventTabel.STARTUUR, event.getStartuur());
-        cv.put(EventTabel.EINDUUR, event.getEinduur());
-        cv.put(EventTabel.TIJDSTIP_SORTERING, event.getTijdstip_sortering());
+        cv.put(EventTabel.EVENT_ID, event.getId());
+        cv.put(EventTabel.EVENT_NAAM, event.getNaam());
+        cv.put(EventTabel.EVENT_TYPE, event.getType());
+        cv.put(EventTabel.EVENT_CONTACTPOINT_ID, event.getContactPuntId());
+        cv.put(EventTabel.EVENT_CONTRIBUTOR_TYPE, event.getBijdragerType());
+        cv.put(EventTabel.EVENT_CONTRIBUTOR_NAME, event.getBijdragerNaam());
+        cv.put(EventTabel.EVENT_BESCHRIJVING, event.getBeschrijving());
+        cv.put(EventTabel.EVENT_AFBEELDING_URL, event.getAfbeeldingUrl());
+        cv.put(EventTabel.EVENT_AFBEELDING_TITEL, event.getAfbeeldingTitel());
+        cv.put(EventTabel.EVENT_AFBEELDING_THUMBNAIL, event.getAfbeeldingThumbNail());
 
-        cv.put(EventTabel.UIT_MET_VLIEG, event.getUitmetvlieg());
-        cv.put(EventTabel.IN_HET_GENTS, event.getInhetgents());
-        cv.put(EventTabel.AFBEELDING, event.getAfbeelding());
-        cv.put(EventTabel.DOVENTOLK, event.getDoventolk());
-        cv.put(EventTabel.ORGANISATIE, event.getOrganisatie());
-        cv.put(EventTabel.ORGANISATOR_ID, event.getOrganisator_id());
-        cv.put(EventTabel.GENTS_INITIATIEF, event.getGents_initiatief());
-        cv.put(EventTabel.VIDEOS, event.getVideos());
-        cv.put(EventTabel.ZOEKWOORDEN, event.getZoekwoorden());
-        cv.put(EventTabel.MEER_INFO, event.getMeer_info());
+        cv.put(EventTabel.EVENT_TAAL, event.getTaal());
+        cv.put(EventTabel.EVENT_IS_ACCESSIBLE_FOR_FREE, event.getIsGratisToegang());
+        cv.put(EventTabel.EVENT_IS_PART_OF, event.getMaaktDeelUitVan());
+        cv.put(EventTabel.EVENT_ROLSTOELTOEGANKELIJKHEID, event.getRolstoelToegankelijkheid());
+        cv.put(EventTabel.EVENT_KERNWOORDEN, event.getKernwoorden());
+        cv.put(EventTabel.EVENT_LOCATIE_ID, event.getLocatieId());
+        cv.put(EventTabel.EVENT_STARTDATUM_LONG, event.getStartDatumLong());
+        cv.put(EventTabel.EVENT_STARTDATUM_SHORT, event.getStartDatumShort());
+        cv.put(EventTabel.EVENT_STARTUUR, event.getStartUur());
+        cv.put(EventTabel.EVENT_EINDUUR, event.getEindUur());
+        cv.put(EventTabel.EVENT_ORGANISATOR_ID, event.getOrganisatorId());
 
-        cv.put(EventTabel.FESTIVAL, event.getFestival());
-        cv.put(EventTabel.GHENT_SELECTION, event.getGhent_selection());
-        cv.put(EventTabel.URL, event.getUrl());
-        cv.put(EventTabel.ORGANISATIE_WEBSITE, event.getOrganisatie_website());
-        cv.put(EventTabel.GRATIS, event.getGratis());
-        cv.put(EventTabel.APARTE_PRIJS_VVK, event.getAparte_prijs_vvk());
-        cv.put(EventTabel.PRIJS, event.getPrijs());
-        cv.put(EventTabel.PRIJS_OMSCHRIJVING, event.getPrijs_omschrijving());
-        cv.put(EventTabel.PRIJS_VVK, event.getPrijs_vvk());
-        cv.put(EventTabel.PRIJS_VVK_OMSCHRIJVING, event.getPrijs_vvk_omschrijving());
-
-        cv.put(EventTabel.KORTING, event.getKorting());
-        cv.put(EventTabel.CATEGORIE_ID, event.getCategorie_id());
-        cv.put(EventTabel.CATEGORIE_TITEL, event.getCategorie_naam());
-        cv.put(EventTabel.TOEGANKELIJK_ROLSTOEL, event.getToegankelijk_rolstoel());
-        cv.put(EventTabel.OVERKOEPELENDE_TITEL, event.getModified());
-        cv.put(EventTabel.OVERKOEPELENDE_OMSCHRIJVING, event.getOverkoepelende_omschrijving());
-        cv.put(EventTabel.LOCATIE_ID, event.getLocatie_id());
-        cv.put(EventTabel.LOCATIE_NAAM, event.getLocatie());
-        cv.put(EventTabel.SUBLOCATIE, event.getSublocatie());
-        cv.put(EventTabel.STRAAT, event.getStraat());
-
-        cv.put(EventTabel.HUISNUMMER, event.getHuisnummer());
-        cv.put(EventTabel.BUS, event.getBus());
-        cv.put(EventTabel.POSTCODE, event.getPostcode());
-        cv.put(EventTabel.GEMEENTE, event.getGemeente());
-        cv.put(EventTabel.LATITUDE, event.getLatitude());
-        cv.put(EventTabel.LONGITUDE, event.getLongitude());
-        cv.put(EventTabel.DAGKLAPPER, event.getDagklapper());
+        cv.put(EventTabel.EVENT_CATEGORIE_ID, event.getCategorieId());
+        cv.put(EventTabel.EVENT_WEBSITE_URL, event.getWebsiteUrl());
+        cv.put(EventTabel.EVENT_VIDEO_URL, event.getVideoUrl());
+        cv.put(EventTabel.EVENT_VIDEO_THUMBNAIL, event.getVideoThumbnail());
+        cv.put(EventTabel.EVENT_VIDEO_ONDERSCHRIFT, event.getVideoOnderschrift());
+        cv.put(EventTabel.EVENT_PRIJS, event.getPrijs());
+        cv.put(EventTabel.EVENT_WISSELKOERS, event.getWisselkoers());
+        cv.put(EventTabel.EVENT_PRIJS_OMSCHRIJVING, event.getPrijs_omschrijving());
+        cv.put(EventTabel.EVENT_VOORVERKOOPPRIJS, event.getVoorverkoopPrijs());
+        cv.put(EventTabel.EVENT_VERKRIJGBAARHEID, event.getVerkrijgbaarheid());
+        cv.put(EventTabel.EVENT_KORTING, event.getKorting());
 
         // BEKOMEN VAN EEN SCHRIJFBARE DATABANK EN VERVOLGENS DE RECORD TOEVOEGEN
         sd = this.getWritableDatabase();
 
-        long result = sd.insert(EventTabel.TABEL_NAAM, EventTabel.TITEL, cv);
+        long result = sd.insert(EventTabel.TABEL_NAAM, EventTabel.EVENT_NAAM, cv);
         return result;
     }
 
-    public ArrayList<Event> getEvents() {
+    public ArrayList<Event> getAllDataShortNotation() {
         SQLiteDatabase db = this.getReadableDatabase();
         eventsArrayLijst = null;
         try{
             eventsArrayLijst = new ArrayList<Event>();
-            String QUERY = "SELECT * FROM "+ EventTabel.TABEL_NAAM + " " +
-                            "ORDER BY tblEvent._tijdstip_sortering";
+
+            String QUERY = "select * " +
+                            "from " + EventTabel.TABEL_NAAM + " " +
+                            "where _startdatum_short is not null " +
+                            "group by _startdatum_short " +
+                            "order by _startdatum_long ASC ";
             Cursor cursor = db.rawQuery(QUERY, null);
             if(!cursor.isLast())
             {
@@ -101,56 +91,37 @@ public class EventDB extends SchemaHelper {
                     Event event = new Event();
 
                     event.setId(cursor.getString(0));
-                    event.setActiviteitsId(cursor.getString(1));
-                    event.setTitel(cursor.getString(2));
-                    event.setModified(cursor.getString(3));
-                    event.setOmschrijving(cursor.getString(4));
-                    event.setDatum(cursor.getString(5));
-                    event.setPeriode(cursor.getString(6));
-                    event.setStartuur(cursor.getString(7));
-                    event.setEinduur(cursor.getString(8));
-                    event.setTijdstip_sortering(cursor.getString(9));
-
-                    event.setUitmetvlieg(cursor.getString(10));
-                    event.setInhetgents(cursor.getString(11));
-                    event.setAfbeelding(cursor.getString(12));
-                    event.setDoventolk(cursor.getString(13));
-                    event.setOrganisatie(cursor.getString(14));
-                    event.setOrganisator_id(cursor.getString(15));
-                    event.setGents_initiatief(cursor.getString(16));
-                    event.setVideos(cursor.getString(17));
-                    event.setZoekwoorden(cursor.getString(18));
-                    event.setMeer_info(cursor.getString(19));
-
-                    event.setFestival(cursor.getString(20));
-                    event.setGhent_selection(cursor.getString(21));
-                    event.setUrl(cursor.getString(22));
-                    event.setOrganisatie_website(cursor.getString(23));
-                    event.setGratis(cursor.getString(24));
-                    event.setAparte_prijs_vvk(cursor.getString(25));
+                    event.setNaam(cursor.getString(1));
+                    event.setType(cursor.getString(2));
+                    event.setContactPuntId(cursor.getString(3));
+                    event.setBijdragerType(cursor.getString(4));
+                    event.setBijdragerNaam(cursor.getString(5));
+                    event.setBeschrijving(cursor.getString(6));
+                    event.setAfbeeldingUrl(cursor.getString(7));
+                    event.setAfbeeldingThumbNail(cursor.getString(8));
+                    event.setAfbeeldingTitel(cursor.getString(9));
+                    event.setTaal(cursor.getString(10));
+                    event.setIsGratisToegang(cursor.getString(11));
+                    event.setMaaktDeelUitVan(cursor.getString(12));
+                    event.setRolstoelToegankelijkheid(cursor.getString(13));
+                    event.setKernwoorden(cursor.getString(14));
+                    event.setLocatieId(cursor.getString(15));
+                    event.setStartDatumLong(cursor.getString(16));
+                    event.setStartDatumShort(cursor.getString(17));
+                    event.setStartUur(cursor.getString(18));
+                    event.setEindUur(cursor.getString(19));
+                    event.setOrganisatorId(cursor.getString(20));
+                    event.setCategorieId(cursor.getString(21));
+                    event.setWebsiteUrl(cursor.getString(22));
+                    event.setVideoUrl(cursor.getString(23));
+                    event.setVideoThumbnail(cursor.getString(24));
+                    event.setVideoOnderschrift(cursor.getString(25));
                     event.setPrijs(cursor.getString(26));
-                    event.setPrijs_omschrijving(cursor.getString(27));
-                    event.setPrijs_vvk(cursor.getString(28));
-                    event.setPrijs_vvk_omschrijving(cursor.getString(29));
-
-                    event.setKorting(cursor.getString(30));
-                    event.setCategorie_id(cursor.getString(31));
-                    event.setCategorie_naam(cursor.getString(32));
-                    event.setToegankelijk_rolstoel(cursor.getString(33));
-                    event.setOverkoepelende_titel(cursor.getString(34));
-                    event.setOverkoepelende_omschrijving(cursor.getString(35));
-                    event.setLocatie_id(cursor.getString(36));
-                    event.setLocatie(cursor.getString(37));
-                    event.setSublocatie(cursor.getString(38));
-                    event.setStraat(cursor.getString(39));
-
-                    event.setHuisnummer(cursor.getString(40));
-                    event.setBus(cursor.getString(41));
-                    event.setPostcode(cursor.getString(42));
-                    event.setGemeente(cursor.getString(43));
-                    event.setLatitude(cursor.getString(44));
-                    event.setLongitude(cursor.getString(45));
-                    event.setDagklapper(cursor.getString(46));
+                    event.setWisselkoers(cursor.getString(27));
+                    event.setPrijs_omschrijving(cursor.getString(28));
+                    event.setVoorverkoopPrijs(cursor.getString(29));
+                    event.setVerkrijgbaarheid(cursor.getString(30));
+                    event.setKorting(cursor.getString(31));
 
                     eventsArrayLijst.add(event);
                 }
@@ -162,14 +133,27 @@ public class EventDB extends SchemaHelper {
         return eventsArrayLijst;
     }
 
-    public ArrayList<Event> getEventsByDate(int timestamp) {
+    public ArrayList<Event> getEventsByDate(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
         eventsArrayLijst = null;
         try{
             eventsArrayLijst = new ArrayList<Event>();
-            String QUERY = "SELECT * FROM "+ EventTabel.TABEL_NAAM + " " +
-                    "WHERE tblEvent._datum = " + timestamp + " " +
-                    "ORDER BY tblEvent._tijdstip_sortering";
+
+            String QUERY = "SELECT DISTINCT e._event_id, e._naam, e._event_type, e._contactpoint_id, e._contributor_type, e._contributor_name, e._beschrijving,\n" +
+                    "       e._afbeelding_url, e._afbeelding_thumbnail, e._afbeelding_titel, e._taal, e._is_accessible_for_free, e._is_part_of,\n" +
+                    "       e._rolstoeltoegankelijkheid, e._kernwoorden, e._locatie_Id, e._startdatum_long, e._startdatum_short,\n" +
+                    "       e._startuur, e._einduur, e._organisator_id, e._categorie_id, e._website_url," +
+                    "       e._video_url, e._video_thumbnail, e._video_onderschrift, e._prijs, e._wisselkoers,\n" +
+                    "       e._prijs_omschrijving, e._voorverkoopprijs, e._verkrijgbaarheid, e._korting,\n" +
+                    "       c._categorie_titel,\n" +
+                    "       l._locatie_naam, l._locatie_straat, l._locatie_postcode, l._locatie_gemeente, l._rolstoel_toegankelijkheid,\n" +
+                    "       o._organisatie_naam, o._organisatie_straat, o._organisatie_postcode, o._organisatie_gemeente\n" +
+                    "FROM tblEvent e\n" +
+                    "INNER JOIN tblCategorie c ON e._categorie_id = c._categorie_id\n" +
+                    "INNER JOIN tblLocatie l on e._locatie_Id = l._locatie_id\n" +
+                    "INNER JOIN tblOrganisatie o on e._organisator_id = o._organisatie_id\n" +
+                    "WHERE e._startdatum_short = '" + date + "'\n" +
+                    "ORDER BY e._startdatum_long ASC";
             Cursor cursor = db.rawQuery(QUERY, null);
             if(!cursor.isLast())
             {
@@ -178,56 +162,56 @@ public class EventDB extends SchemaHelper {
                     Event event = new Event();
 
                     event.setId(cursor.getString(0));
-                    event.setActiviteitsId(cursor.getString(1));
-                    event.setTitel(cursor.getString(2));
-                    event.setModified(cursor.getString(3));
-                    event.setOmschrijving(cursor.getString(4));
-                    event.setDatum(cursor.getString(5));
-                    event.setPeriode(cursor.getString(6));
-                    event.setStartuur(cursor.getString(7));
-                    event.setEinduur(cursor.getString(8));
-                    event.setTijdstip_sortering(cursor.getString(9));
-
-                    event.setUitmetvlieg(cursor.getString(10));
-                    event.setInhetgents(cursor.getString(11));
-                    event.setAfbeelding(cursor.getString(12));
-                    event.setDoventolk(cursor.getString(13));
-                    event.setOrganisatie(cursor.getString(14));
-                    event.setOrganisator_id(cursor.getString(15));
-                    event.setGents_initiatief(cursor.getString(16));
-                    event.setVideos(cursor.getString(17));
-                    event.setZoekwoorden(cursor.getString(18));
-                    event.setMeer_info(cursor.getString(19));
-
-                    event.setFestival(cursor.getString(20));
-                    event.setGhent_selection(cursor.getString(21));
-                    event.setUrl(cursor.getString(22));
-                    event.setOrganisatie_website(cursor.getString(23));
-                    event.setGratis(cursor.getString(24));
-                    event.setAparte_prijs_vvk(cursor.getString(25));
+                    event.setNaam(cursor.getString(1));
+                    event.setType(cursor.getString(2));
+                    event.setContactPuntId(cursor.getString(3));
+                    event.setBijdragerType(cursor.getString(4));
+                    event.setBijdragerNaam(cursor.getString(5));
+                    event.setBeschrijving(cursor.getString(6));
+                    event.setAfbeeldingUrl(cursor.getString(7));
+                    event.setAfbeeldingThumbNail(cursor.getString(8));
+                    event.setAfbeeldingTitel(cursor.getString(9));
+                    event.setTaal(cursor.getString(10));
+                    event.setIsGratisToegang(cursor.getString(11));
+                    event.setMaaktDeelUitVan(cursor.getString(12));
+                    event.setRolstoelToegankelijkheid(cursor.getString(13));
+                    event.setKernwoorden(cursor.getString(14));
+                    event.setLocatieId(cursor.getString(15));
+                    event.setStartDatumLong(cursor.getString(16));
+                    event.setStartDatumShort(cursor.getString(17));
+                    event.setStartUur(cursor.getString(18));
+                    event.setEindUur(cursor.getString(19));
+                    event.setOrganisatorId(cursor.getString(20));
+                    event.setCategorieId(cursor.getString(21));
+                    event.setWebsiteUrl(cursor.getString(22));
+                    event.setVideoUrl(cursor.getString(23));
+                    event.setVideoThumbnail(cursor.getString(24));
+                    event.setVideoOnderschrift(cursor.getString(25));
                     event.setPrijs(cursor.getString(26));
-                    event.setPrijs_omschrijving(cursor.getString(27));
-                    event.setPrijs_vvk(cursor.getString(28));
-                    event.setPrijs_vvk_omschrijving(cursor.getString(29));
+                    event.setWisselkoers(cursor.getString(27));
+                    event.setPrijs_omschrijving(cursor.getString(28));
+                    event.setVoorverkoopPrijs(cursor.getString(29));
+                    event.setVerkrijgbaarheid(cursor.getString(30));
+                    event.setKorting(cursor.getString(31));
 
-                    event.setKorting(cursor.getString(30));
-                    event.setCategorie_id(cursor.getString(31));
-                    event.setCategorie_naam(cursor.getString(32));
-                    event.setToegankelijk_rolstoel(cursor.getString(33));
-                    event.setOverkoepelende_titel(cursor.getString(34));
-                    event.setOverkoepelende_omschrijving(cursor.getString(35));
-                    event.setLocatie_id(cursor.getString(36));
-                    event.setLocatie(cursor.getString(37));
-                    event.setSublocatie(cursor.getString(38));
-                    event.setStraat(cursor.getString(39));
+                    Categorie categorie = new Categorie();
+                    categorie.setTitel(cursor.getString(32));
+                    event.setCategorie(categorie);
 
-                    event.setHuisnummer(cursor.getString(40));
-                    event.setBus(cursor.getString(41));
-                    event.setPostcode(cursor.getString(42));
-                    event.setGemeente(cursor.getString(43));
-                    event.setLatitude(cursor.getString(44));
-                    event.setLongitude(cursor.getString(45));
-                    event.setDagklapper(cursor.getString(46));
+                    Locatie locatie = new Locatie();
+                    locatie.setNaam(cursor.getString(33));
+                    locatie.setStraat(cursor.getString(34));
+                    locatie.setPostcode(cursor.getString(35));
+                    locatie.setGemeente(cursor.getString(36));
+                    locatie.setRolstoel_toegankelijkheid(cursor.getString(37));
+                    event.setLocatie(locatie);
+
+                    Organisator organisator = new Organisator();
+                    organisator.setOrganisatieNaam(cursor.getString(38));
+                    organisator.setOrganisatieStraat(cursor.getString(39));
+                    organisator.setOrganisatiePostcode(cursor.getString(40));
+                    organisator.setOrganisatieGemeente(cursor.getString(41));
+                    event.setOrganisator(organisator);
 
                     eventsArrayLijst.add(event);
                 }
@@ -239,15 +223,28 @@ public class EventDB extends SchemaHelper {
         return eventsArrayLijst;
     }
 
-    public ArrayList<Event> getEventsByCategoryAndDate(int cat_id, int date) {
+    public ArrayList<Event> getEventsByCategoryAndDate(String cat_id, String date) {
         SQLiteDatabase db = this.getReadableDatabase();
         eventsArrayLijst = null;
         try{
             eventsArrayLijst = new ArrayList<Event>();
-            String QUERY = "SELECT * FROM " + EventTabel.TABEL_NAAM + " " +
-                            "WHERE tblEvent._categorie_id = " + cat_id + " " +
-                            "AND " + "tblEvent._datum = " + date + " " +
-                            "ORDER BY tblEvent._tijdstip_sortering";
+            String QUERY = "SELECT DISTINCT e._event_id, e._naam, e._event_type, e._contactpoint_id, e._contributor_type, e._contributor_name, e._beschrijving,\n" +
+                    "e._afbeelding_url, e._afbeelding_thumbnail, e._afbeelding_titel, e._taal, e._is_accessible_for_free, e._is_part_of,\n" +
+                    "e._rolstoeltoegankelijkheid, e._kernwoorden, e._locatie_Id, e._startdatum_long, e._startdatum_short,\n" +
+                    "e._startuur, e._einduur, e._organisator_id, e._categorie_id, e._website_url," +
+                    "e._video_url, e._video_thumbnail, e._video_onderschrift, e._prijs, e._wisselkoers,\n" +
+                    "e._prijs_omschrijving, e._voorverkoopprijs, e._verkrijgbaarheid, e._korting,\n" +
+                    "c._categorie_titel,\n" +
+                    "l._locatie_naam, l._locatie_straat, l._locatie_postcode, l._locatie_gemeente, l._rolstoel_toegankelijkheid,\n" +
+                    "o._organisatie_naam, o._organisatie_straat, o._organisatie_postcode, o._organisatie_gemeente\n" +
+                    "FROM tblEvent e\n" +
+                    "INNER JOIN tblCategorie c ON e._categorie_id = c._categorie_id\n" +
+                    "INNER JOIN tblLocatie l on e._locatie_Id = l._locatie_id\n" +
+                    "INNER JOIN tblOrganisatie o on e._organisator_id = o._organisatie_id\n" +
+                    "WHERE e._categorie_id = '" + cat_id +  "'" +
+                    "AND e._startdatum_short = '" + date + "'" +
+                    "ORDER BY e._startdatum_long ASC";
+
             Cursor cursor = db.rawQuery(QUERY, null);
             if(!cursor.isLast())
             {
@@ -256,56 +253,56 @@ public class EventDB extends SchemaHelper {
                     Event event = new Event();
 
                     event.setId(cursor.getString(0));
-                    event.setActiviteitsId(cursor.getString(1));
-                    event.setTitel(cursor.getString(2));
-                    event.setModified(cursor.getString(3));
-                    event.setOmschrijving(cursor.getString(4));
-                    event.setDatum(cursor.getString(5));
-                    event.setPeriode(cursor.getString(6));
-                    event.setStartuur(cursor.getString(7));
-                    event.setEinduur(cursor.getString(8));
-                    event.setTijdstip_sortering(cursor.getString(9));
-
-                    event.setUitmetvlieg(cursor.getString(10));
-                    event.setInhetgents(cursor.getString(11));
-                    event.setAfbeelding(cursor.getString(12));
-                    event.setDoventolk(cursor.getString(13));
-                    event.setOrganisatie(cursor.getString(14));
-                    event.setOrganisator_id(cursor.getString(15));
-                    event.setGents_initiatief(cursor.getString(16));
-                    event.setVideos(cursor.getString(17));
-                    event.setZoekwoorden(cursor.getString(18));
-                    event.setMeer_info(cursor.getString(19));
-
-                    event.setFestival(cursor.getString(20));
-                    event.setGhent_selection(cursor.getString(21));
-                    event.setUrl(cursor.getString(22));
-                    event.setOrganisatie_website(cursor.getString(23));
-                    event.setGratis(cursor.getString(24));
-                    event.setAparte_prijs_vvk(cursor.getString(25));
+                    event.setNaam(cursor.getString(1));
+                    event.setType(cursor.getString(2));
+                    event.setContactPuntId(cursor.getString(3));
+                    event.setBijdragerType(cursor.getString(4));
+                    event.setBijdragerNaam(cursor.getString(5));
+                    event.setBeschrijving(cursor.getString(6));
+                    event.setAfbeeldingUrl(cursor.getString(7));
+                    event.setAfbeeldingThumbNail(cursor.getString(8));
+                    event.setAfbeeldingTitel(cursor.getString(9));
+                    event.setTaal(cursor.getString(10));
+                    event.setIsGratisToegang(cursor.getString(11));
+                    event.setMaaktDeelUitVan(cursor.getString(12));
+                    event.setRolstoelToegankelijkheid(cursor.getString(13));
+                    event.setKernwoorden(cursor.getString(14));
+                    event.setLocatieId(cursor.getString(15));
+                    event.setStartDatumLong(cursor.getString(16));
+                    event.setStartDatumShort(cursor.getString(17));
+                    event.setStartUur(cursor.getString(18));
+                    event.setEindUur(cursor.getString(19));
+                    event.setOrganisatorId(cursor.getString(20));
+                    event.setCategorieId(cursor.getString(21));
+                    event.setWebsiteUrl(cursor.getString(22));
+                    event.setVideoUrl(cursor.getString(23));
+                    event.setVideoThumbnail(cursor.getString(24));
+                    event.setVideoOnderschrift(cursor.getString(25));
                     event.setPrijs(cursor.getString(26));
-                    event.setPrijs_omschrijving(cursor.getString(27));
-                    event.setPrijs_vvk(cursor.getString(28));
-                    event.setPrijs_vvk_omschrijving(cursor.getString(29));
+                    event.setWisselkoers(cursor.getString(27));
+                    event.setPrijs_omschrijving(cursor.getString(28));
+                    event.setVoorverkoopPrijs(cursor.getString(29));
+                    event.setVerkrijgbaarheid(cursor.getString(30));
+                    event.setKorting(cursor.getString(31));
 
-                    event.setKorting(cursor.getString(30));
-                    event.setCategorie_id(cursor.getString(31));
-                    event.setCategorie_naam(cursor.getString(32));
-                    event.setToegankelijk_rolstoel(cursor.getString(33));
-                    event.setOverkoepelende_titel(cursor.getString(34));
-                    event.setOverkoepelende_omschrijving(cursor.getString(35));
-                    event.setLocatie_id(cursor.getString(36));
-                    event.setLocatie(cursor.getString(37));
-                    event.setSublocatie(cursor.getString(38));
-                    event.setStraat(cursor.getString(39));
+                    Categorie categorie = new Categorie();
+                    categorie.setTitel(cursor.getString(32));
+                    event.setCategorie(categorie);
 
-                    event.setHuisnummer(cursor.getString(40));
-                    event.setBus(cursor.getString(41));
-                    event.setPostcode(cursor.getString(42));
-                    event.setGemeente(cursor.getString(43));
-                    event.setLatitude(cursor.getString(44));
-                    event.setLongitude(cursor.getString(45));
-                    event.setDagklapper(cursor.getString(46));
+                    Locatie locatie = new Locatie();
+                    locatie.setNaam(cursor.getString(33));
+                    locatie.setStraat(cursor.getString(34));
+                    locatie.setPostcode(cursor.getString(35));
+                    locatie.setGemeente(cursor.getString(36));
+                    locatie.setRolstoel_toegankelijkheid(cursor.getString(37));
+                    event.setLocatie(locatie);
+
+                    Organisator organisator = new Organisator();
+                    organisator.setOrganisatieNaam(cursor.getString(38));
+                    organisator.setOrganisatieStraat(cursor.getString(39));
+                    organisator.setOrganisatiePostcode(cursor.getString(40));
+                    organisator.setOrganisatieGemeente(cursor.getString(41));
+                    event.setOrganisator(organisator);
 
                     eventsArrayLijst.add(event);
                 }
@@ -317,68 +314,88 @@ public class EventDB extends SchemaHelper {
         return eventsArrayLijst;
     }
 
-    public ArrayList<Event> getEventsByLocationAndDate(int locatie_id, int date) {
+    public ArrayList<Event> getEventsByLocationAndDate(String locatie_id, String date) {
         SQLiteDatabase db = this.getReadableDatabase();
         eventsArrayLijst = null;
         try{
             eventsArrayLijst = new ArrayList<Event>();
-            String QUERY = "SELECT * FROM " + EventTabel.TABEL_NAAM + " " +
-                    "WHERE tblEvent._locatie_id = " + locatie_id + " " +
-                    "AND " + "tblEvent._datum = " + date + " " +
-                    "ORDER BY tblEvent._tijdstip_sortering";
+
+            String QUERY = "SELECT DISTINCT e._event_id, e._naam, e._event_type, e._contactpoint_id, e._contributor_type, e._contributor_name, e._beschrijving,\n" +
+                    "e._afbeelding_url, e._afbeelding_thumbnail, e._afbeelding_titel, e._taal, e._is_accessible_for_free, e._is_part_of,\n" +
+                    "e._rolstoeltoegankelijkheid, e._kernwoorden, e._locatie_Id, e._startdatum_long, e._startdatum_short,\n" +
+                    "e._startuur, e._einduur, e._organisator_id, e._categorie_id, e._website_url," +
+                    "e._video_url, e._video_thumbnail, e._video_onderschrift, e._prijs, e._wisselkoers,\n" +
+                    "e._prijs_omschrijving, e._voorverkoopprijs, e._verkrijgbaarheid, e._korting,\n" +
+                    "c._categorie_titel,\n" +
+                    "l._locatie_naam, l._locatie_straat, l._locatie_postcode, l._locatie_gemeente, l._rolstoel_toegankelijkheid,\n" +
+                    "o._organisatie_naam, o._organisatie_straat, o._organisatie_postcode, o._organisatie_gemeente\n" +
+                    "FROM tblEvent e\n" +
+                    "INNER JOIN tblCategorie c ON e._categorie_id = c._categorie_id\n" +
+                    "INNER JOIN tblLocatie l on e._locatie_Id = l._locatie_id\n" +
+                    "INNER JOIN tblOrganisatie o on e._organisator_id = o._organisatie_id\n" +
+                    "WHERE e._locatie_id = '" + locatie_id + "' " +
+                    "AND e._startdatum_short = '" + date + "' " +
+                    "ORDER BY e._startdatum_long ASC";
+
             Cursor cursor = db.rawQuery(QUERY, null);
             if(!cursor.isLast())
             {
                 while (cursor.moveToNext())
                 {
                     Event event = new Event();
+
                     event.setId(cursor.getString(0));
-                    event.setActiviteitsId(cursor.getString(1));
-                    event.setTitel(cursor.getString(2));
-                    event.setModified(cursor.getString(3));
-                    event.setOmschrijving(cursor.getString(4));
-                    event.setDatum(cursor.getString(5));
-                    event.setPeriode(cursor.getString(6));
-                    event.setStartuur(cursor.getString(7));
-                    event.setEinduur(cursor.getString(8));
-                    event.setTijdstip_sortering(cursor.getString(9));
-                    event.setUitmetvlieg(cursor.getString(10));
-                    event.setInhetgents(cursor.getString(11));
-                    event.setAfbeelding(cursor.getString(12));
-                    event.setDoventolk(cursor.getString(13));
-                    event.setOrganisatie(cursor.getString(14));
-                    event.setOrganisator_id(cursor.getString(15));
-                    event.setGents_initiatief(cursor.getString(16));
-                    event.setVideos(cursor.getString(17));
-                    event.setZoekwoorden(cursor.getString(18));
-                    event.setMeer_info(cursor.getString(19));
-                    event.setFestival(cursor.getString(20));
-                    event.setGhent_selection(cursor.getString(21));
-                    event.setUrl(cursor.getString(22));
-                    event.setOrganisatie_website(cursor.getString(23));
-                    event.setGratis(cursor.getString(24));
-                    event.setAparte_prijs_vvk(cursor.getString(25));
+                    event.setNaam(cursor.getString(1));
+                    event.setType(cursor.getString(2));
+                    event.setContactPuntId(cursor.getString(3));
+                    event.setBijdragerType(cursor.getString(4));
+                    event.setBijdragerNaam(cursor.getString(5));
+                    event.setBeschrijving(cursor.getString(6));
+                    event.setAfbeeldingUrl(cursor.getString(7));
+                    event.setAfbeeldingThumbNail(cursor.getString(8));
+                    event.setAfbeeldingTitel(cursor.getString(9));
+                    event.setTaal(cursor.getString(10));
+                    event.setIsGratisToegang(cursor.getString(11));
+                    event.setMaaktDeelUitVan(cursor.getString(12));
+                    event.setRolstoelToegankelijkheid(cursor.getString(13));
+                    event.setKernwoorden(cursor.getString(14));
+                    event.setLocatieId(cursor.getString(15));
+                    event.setStartDatumLong(cursor.getString(16));
+                    event.setStartDatumShort(cursor.getString(17));
+                    event.setStartUur(cursor.getString(18));
+                    event.setEindUur(cursor.getString(19));
+                    event.setOrganisatorId(cursor.getString(20));
+                    event.setCategorieId(cursor.getString(21));
+                    event.setWebsiteUrl(cursor.getString(22));
+                    event.setVideoUrl(cursor.getString(23));
+                    event.setVideoThumbnail(cursor.getString(24));
+                    event.setVideoOnderschrift(cursor.getString(25));
                     event.setPrijs(cursor.getString(26));
-                    event.setPrijs_omschrijving(cursor.getString(27));
-                    event.setPrijs_vvk(cursor.getString(28));
-                    event.setPrijs_vvk_omschrijving(cursor.getString(29));
-                    event.setKorting(cursor.getString(30));
-                    event.setCategorie_id(cursor.getString(31));
-                    event.setCategorie_naam(cursor.getString(32));
-                    event.setToegankelijk_rolstoel(cursor.getString(33));
-                    event.setOverkoepelende_titel(cursor.getString(34));
-                    event.setOverkoepelende_omschrijving(cursor.getString(35));
-                    event.setLocatie_id(cursor.getString(36));
-                    event.setLocatie(cursor.getString(37));
-                    event.setSublocatie(cursor.getString(38));
-                    event.setStraat(cursor.getString(39));
-                    event.setHuisnummer(cursor.getString(40));
-                    event.setBus(cursor.getString(41));
-                    event.setPostcode(cursor.getString(42));
-                    event.setGemeente(cursor.getString(43));
-                    event.setLatitude(cursor.getString(44));
-                    event.setLongitude(cursor.getString(45));
-                    event.setDagklapper(cursor.getString(46));
+                    event.setWisselkoers(cursor.getString(27));
+                    event.setPrijs_omschrijving(cursor.getString(28));
+                    event.setVoorverkoopPrijs(cursor.getString(29));
+                    event.setVerkrijgbaarheid(cursor.getString(30));
+                    event.setKorting(cursor.getString(31));
+
+                    Categorie categorie = new Categorie();
+                    categorie.setTitel(cursor.getString(32));
+                    event.setCategorie(categorie);
+
+                    Locatie locatie = new Locatie();
+                    locatie.setNaam(cursor.getString(33));
+                    locatie.setStraat(cursor.getString(34));
+                    locatie.setPostcode(cursor.getString(35));
+                    locatie.setGemeente(cursor.getString(36));
+                    locatie.setRolstoel_toegankelijkheid(cursor.getString(37));
+                    event.setLocatie(locatie);
+
+                    Organisator organisator = new Organisator();
+                    organisator.setOrganisatieNaam(cursor.getString(38));
+                    organisator.setOrganisatieStraat(cursor.getString(39));
+                    organisator.setOrganisatiePostcode(cursor.getString(40));
+                    organisator.setOrganisatieGemeente(cursor.getString(41));
+                    event.setOrganisator(organisator);
+
                     eventsArrayLijst.add(event);
                 }
             }
@@ -393,4 +410,3 @@ public class EventDB extends SchemaHelper {
         return eventsArrayLijst.size();
     }
 }
-

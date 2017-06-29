@@ -1,6 +1,5 @@
 package be.davygevaert.gentsefeesten;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -9,28 +8,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
-import java.util.List;
 
 import be.davygevaert.gentsefeesten.adapter.EventDetailRecyclerAdapter;
-import be.davygevaert.gentsefeesten.adapter.EventRecyclerAdapter;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.fragment.NavigationDrawerFragment;
-import be.davygevaert.gentsefeesten.model.Categorie;
-import be.davygevaert.gentsefeesten.model.Data;
 import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.tools.Animation;
-import be.davygevaert.gentsefeesten.tools.Tools;
 
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -38,7 +24,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
     private Toolbar toolbar;
-    private Data mData;
     private Event mEvent;
     private Constants.AnimType type;
 
@@ -59,7 +44,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // verkrijg type uit intent vorige activity met bijhorende recycleradapter waar de enum wordt doorgegeven
         type = (Constants.AnimType) getIntent().getSerializableExtra(Constants.KEY_TYPE);
 
-        mData = getIntent().getParcelableExtra("huidigDataObj");
+        // mData = getIntent().getParcelableExtra("huidigDataObj");
         // Log.i(TAG, "dag van gekozen data object is : " + mData.getDay());
 
         mEvent = getIntent().getParcelableExtra("huidigEventObj");
@@ -72,15 +57,12 @@ public class EventDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // instellen titel toolbar
-        getSupportActionBar().setTitle(Tools.ConvertDay_To_DayStartingWithCap(mData));
+        getSupportActionBar().setTitle(mEvent.getStartDatumShort() + "/2017");
+
 
         if (mEvent != null) {
             // instellen subtitel toolbar
-            if (mEvent.getStartuur().contains("false") && mEvent.getEinduur().contains("false")) {
-                toolbar.setSubtitle("Hele dag");
-            } else {
-                toolbar.setSubtitle(mEvent.getStartuur() + " - " + mEvent.getEinduur());
-            }
+            toolbar.setSubtitle(mEvent.getStartUur() + " - " + mEvent.getEindUur());
 
             setUpDrawer();
 
@@ -88,6 +70,8 @@ public class EventDetailActivity extends AppCompatActivity {
 
             Animation.setUpAnimation(type, this);
         }
+
+
     }
 
     private void setUpRecyclerView(Event event) {

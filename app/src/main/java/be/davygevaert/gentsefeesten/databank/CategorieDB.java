@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import be.davygevaert.gentsefeesten.constanten.CategorieTabel;
+import be.davygevaert.gentsefeesten.constanten.EventTabel;
 import be.davygevaert.gentsefeesten.model.Categorie;
 
 /**
@@ -27,7 +28,7 @@ public class CategorieDB extends SchemaHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(CategorieTabel.CATEGORIE_ID, categorie.getCategorieID());
-        cv.put(CategorieTabel.CATEGORIE_TITEL, categorie.getCategorieTitel());
+        cv.put(CategorieTabel.CATEGORIE_TITEL, categorie.getTitel());
 
         // BEKOMEN VAN EEN SCHRIJFBARE DATABANK EN VERVOLGENS DE RECORD TOEVOEGEN
         sd = this.getWritableDatabase();
@@ -52,7 +53,37 @@ public class CategorieDB extends SchemaHelper {
                 {
                     Categorie categorie = new Categorie();
                     categorie.setCategorieID(cursor.getString(0));
-                    categorie.setCategorieTitel(cursor.getString(1));
+                    categorie.setTitel(cursor.getString(1));
+                    categorieArrayList.add(categorie);
+                }
+            }
+            db.close();
+        }catch (Exception e){
+            Log.e("error", e + "");
+        }
+        return categorieArrayList;
+    }
+
+    public ArrayList<Categorie> getCategorieenByDate(String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Categorie> categorieArrayList = null;
+        try{
+            categorieArrayList = new ArrayList<Categorie>();
+
+            String QUERY = "SELECT DISTINCT c._categorie_id, c._categorie_titel" +
+                    " FROM tblCategorie c " +
+                    " INNER JOIN tblEvent e ON c._categorie_id = e._categorie_id " +
+                    " WHERE e._startdatum_short = '" + date + "' "+
+                    " ORDER BY c._categorie_titel ASC";
+
+            Cursor cursor = db.rawQuery(QUERY, null);
+            if(!cursor.isLast())
+            {
+                while (cursor.moveToNext())
+                {
+                    Categorie categorie = new Categorie();
+                    categorie.setCategorieID(cursor.getString(0));
+                    categorie.setTitel(cursor.getString(1));
                     categorieArrayList.add(categorie);
                 }
             }

@@ -1,6 +1,5 @@
 package be.davygevaert.gentsefeesten;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -12,9 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import be.davygevaert.gentsefeesten.adapter.DataRecyclerAdapter;
+import be.davygevaert.gentsefeesten.adapter.EventDataRecyclerAdapter;
 import be.davygevaert.gentsefeesten.constanten.Constants;
-import be.davygevaert.gentsefeesten.databank.DataDB;
 import be.davygevaert.gentsefeesten.databank.EventDB;
 import be.davygevaert.gentsefeesten.fragment.NavigationDrawerFragment;
 import be.davygevaert.gentsefeesten.tools.Animation;
@@ -25,7 +23,8 @@ public class DataActivity extends AppCompatActivity {
     private static String TAG = DataActivity.class.getSimpleName();
 
     private Toolbar toolbar;
-    private DataDB dataDB;
+    private EventDB eventDB;
+    // private DataDB dataDB;
     private Constants.AnimType type;
     private String reset;
 
@@ -37,7 +36,7 @@ public class DataActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_data);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Gentse Feesten 2016");
+        getSupportActionBar().setTitle("Gentse Feesten 2017");
         toolbar.setSubtitle("Maak een keuze per dag");
 
         // verkrijg type uit intent vorige activity met bijhorende recycleradapter waar de enum wordt doorgegeven
@@ -46,7 +45,8 @@ public class DataActivity extends AppCompatActivity {
         // verkrijg String waarde reset als je klikt op home in navigation drawer
         reset = getIntent().getStringExtra("navigatie_naar_home_vanuit_navigation_drawer");
 
-        dataDB = new DataDB(this);
+        eventDB = new EventDB(this);
+        //dataDB = new DataDB(this);
 
         setUpDrawer();
 
@@ -62,7 +62,7 @@ public class DataActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Data);
         // toekennen adapter aan huidige context en lijst data-objecten vanuit database verkrijgen
-        DataRecyclerAdapter adapter = new DataRecyclerAdapter(this, dataDB.getData());
+        EventDataRecyclerAdapter adapter = new EventDataRecyclerAdapter(this, eventDB.getAllDataShortNotation());
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);

@@ -15,7 +15,6 @@ import be.davygevaert.gentsefeesten.EventDetailActivity;
 import be.davygevaert.gentsefeesten.R;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.model.Categorie;
-import be.davygevaert.gentsefeesten.model.Data;
 import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.tools.Animation;
 
@@ -29,12 +28,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     private List<Event> mEvents;
     private LayoutInflater mInflater;
     private Context context;
-    private Data mData;
+    private Event mEvent;
     private Categorie mCategorie;
 
-    public EventRecyclerAdapter(Context context, List<Event> eventArrayList, Data data, Categorie categorie) {
+    public EventRecyclerAdapter(Context context, List<Event> eventArrayList, Event event, Categorie categorie) {
         this.mEvents = eventArrayList;
-        this.mData = data;
+        this.mEvent = event;
         this.mCategorie = categorie;
         this.mInflater = LayoutInflater.from(context);
     }
@@ -79,16 +78,16 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         public void setEvent(Event currentEvent, int position) {
 
+
             for (Event e : mEvents) {
-
-                if (currentEvent.getStartuur().contains("false")) {
-                    this.tv_startuur.setText("Hele\ndag");
-                } else {
-                    this.tv_startuur.setText(currentEvent.getStartuur());
+                if (currentEvent.getStartUur().contains(e.getStartUur())) {
+                    this.tv_startuur.setText(currentEvent.getStartUur());
                 }
+                this.tv_titel.setText(currentEvent.getNaam());
 
-                this.tv_titel.setText(currentEvent.getTitel());
             }
+
+
             this.position = position;
         }
 
@@ -116,8 +115,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     // meegeven huidig Event object aan lokale Intent
                     intent.putExtra("huidigEventObj", currentEventObj);
 
-                    // meegeven huidig Data object aan lokale Intent
-                    intent.putExtra("huidigDataObj", mData);
+                    /*
+                    // meegeven huidig Event object met verkorte datum notatie aan lokale Intent
+                    intent.putExtra("huidigDataObj", mEvent);
+                    */
 
                     // meegeven huidig Categorie object aan lokale Intent
                     intent.putExtra("huidigCategorieObj", mCategorie);
@@ -128,8 +129,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     // meegeven huidig Event object aan lokale Intent
                     intent.putExtra("huidigEventObj", currentEventObj);
 
-                    // meegeven huidig Data object aan lokale Intent
-                    intent.putExtra("huidigDataObj", mData);
+                    /*
+                    // meegeven huidig Event object met verkorte datum notatie aan lokale Intent
+                    intent.putExtra("huidigDataObj", mEvent);
+                    */
 
                     // meegeven huidig Categorie object aan lokale Intent
                     intent.putExtra("huidigCategorieObj", mCategorie);

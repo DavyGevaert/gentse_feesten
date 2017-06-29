@@ -9,12 +9,13 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import be.davygevaert.gentsefeesten.asynctask.VerkrijgCategorieenTask;
-import be.davygevaert.gentsefeesten.asynctask.VerkrijgDataTask;
 import be.davygevaert.gentsefeesten.asynctask.VerkrijgEventsTask;
 import be.davygevaert.gentsefeesten.asynctask.VerkrijgLocatiesTask;
+import be.davygevaert.gentsefeesten.asynctask.VerkrijgOrganisatorenTask;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.databank.SchemaHelper;
 
@@ -23,7 +24,8 @@ public class SplashScreen extends Activity {
 
     private static final String TAG = SplashScreen.class.getSimpleName();
 
-    private final int SPLASH_DISPLAY_LENGTH = 20000;
+    // length ook aanpassen in activity_splash_screen.xml bij android:max in seconden
+    private final int SPLASH_DISPLAY_LENGTH = 60000;
 
     private Intent intent;
     private Context context;
@@ -44,47 +46,42 @@ public class SplashScreen extends Activity {
         // database verwijderen bij opstart
         SchemaHelper handler = new SchemaHelper(getApplicationContext());
 
-        // aanmaken intent en specifieer welke volgende Activity er moet worden geladen
-        intent = new Intent(SplashScreen.this, DataActivity.class);
-
         // initialisatie sharedPreferences en boolean
         final SharedPreferences initialPref = getSharedPreferences("INITIAL", 0);
         boolean firsttimer = initialPref.getBoolean("INITIAL", false);
 
         // via SharedPreferences de database aanmaken als deze applicatie voor de eerste keer opstart met gebruik van deze boolean
-        if (!firsttimer){
-            //create database here
+        if (!firsttimer) {
+            //create database here and after this we display a timer
+            new VerkrijgCategorieenTask(context).execute(Constants.GENTSE_FEESTEN_CATEGORIEEN);
+            new VerkrijgLocatiesTask(context).execute(Constants.GENTSE_FEESTEN_LOCATIES);
+            new VerkrijgOrganisatorenTask(context).execute(Constants.GENTSE_FEESTEN_ORGANISATOREN);
+            new VerkrijgEventsTask(context).execute(Constants.GENTSE_FEESTEN_EVENTS);
 
             // Handler om de DataActivity.class te starten en dit SplashScreen venster af te sluiten
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    //get boolean preference to true
+                    SharedPreferences.Editor editorPref = initialPref.edit();
+                    editorPref.putBoolean("INITIAL", true);
+                    editorPref.commit();
 
-                    // nakijken indien database tabellen geen inhoud bevatten, indien geen gegevens maak dan de database en tabellen op aan de hand van de gegevens uit de Assets folder
-                    // if (dataDB.getDataCount() == 0 || categorieDB.getCategorieCount() == 0 || locatieDB.getLocatieCount() == 0 || eventDB.getEventCount() == 0) {
+                    // aanmaken intent en specifieer welke volgende Activity er moet worden geladen
+                    intent = new Intent(SplashScreen.this, DataActivity.class);
 
-                        // plaats hier asynctasks
-                        // en execute met context als parameter indien assets folder bereikbaar moet zijn
-                        new VerkrijgDataTask(context).execute(Constants.GENTSE_FEESTEN_DATA);
-                        new VerkrijgCategorieenTask(context).execute(Constants.GENTSE_FEESTEN_CATEGORIEEN);
-                        new VerkrijgLocatiesTask(context).execute(Constants.GENTSE_FEESTEN_LOCATIES);
-                        new VerkrijgEventsTask(context).execute(Constants.GENTSE_FEESTEN_EVENTS);
-
-                        //get boolean preference to true
-                        SharedPreferences.Editor editorPref = initialPref.edit();
-                        editorPref.putBoolean("INITIAL", true);
-                        editorPref.commit();
-
-                        // ongeacht ingestelde duur SPLASH_DISPLAY_LENGTH
-                        // indien asynctasks verwerkt zijn op de achtergrond, direct daarna startActivity met intent
-                        SplashScreen.this.startActivity(intent);
-                        // direct afsluiten SplashScreen zodat als gebruiker in DataActivity op terugtoets smartphone klikt/duwt,
-                        // hij/zij teruggaat naar bureaublad smartphone
-                        SplashScreen.this.finish();
-                    }
+                    // ongeacht ingestelde duur SPLASH_DISPLAY_LENGTH
+                    // indien asynctasks verwerkt zijn op de achtergrond, direct daarna startActivity met intent
+                    SplashScreen.this.startActivity(intent);
+                    // direct afsluiten SplashScreen zodat als gebruiker in DataActivity op terugtoets smartphone klikt/duwt,
+                    // hij/zij teruggaat naar bureaublad smartphone
+                    SplashScreen.this.finish();
+                }
             }, SPLASH_DISPLAY_LENGTH);
 
         } else {
+            // aanmaken intent en specifieer welke volgende Activity er moet worden geladen
+            intent = new Intent(SplashScreen.this, DataActivity.class);
 
             // indien de applicatie detecteert vanuit de opgeslagen boolean in sharedPreferences dat de applicatie al een eerste keer heeft gedraaid, dan start direct de applicatie
             // met het begrip dat de database al is aangemaakt
@@ -102,7 +99,7 @@ public class SplashScreen extends Activity {
         activity_is_running = true;
 
         if (activity_is_running){
-            myCountDownTimer = new MyCountDownTimer(20000, 1000);
+            myCountDownTimer = new MyCountDownTimer(60000, 1000);
             myCountDownTimer.start();
         }
     }

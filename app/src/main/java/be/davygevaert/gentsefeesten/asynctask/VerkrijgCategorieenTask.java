@@ -2,6 +2,7 @@ package be.davygevaert.gentsefeesten.asynctask;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +17,7 @@ import be.davygevaert.gentsefeesten.tools.JSON_Tools;
  */
 public class VerkrijgCategorieenTask extends AsyncTask<Object, Integer, CategorieDB> {
 
-    private static String TAG = "VerkrijgCategorieenTask";
+    private static String TAG = VerkrijgCategorieenTask.class.getSimpleName();
 
     private CategorieDB categorieDB;
     private Context context;
@@ -35,16 +36,25 @@ public class VerkrijgCategorieenTask extends AsyncTask<Object, Integer, Categori
             //Log.i(TAG, "fileName inhoud : " + fileName);
 
             JSONArray jsonArray = new JSONArray(JSON_Tools.loadJSONFromAsset(fileName, context));
-            //Log.i(TAG, "array inhoud : " + jsonArray.toString());
+            Log.i(TAG, "array inhoud : " + jsonArray.toString());
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 // huidig jsonObject in jsonArray
                 JSONObject json_obj = jsonArray.getJSONObject(i);
 
+                String id = json_obj.getString("@id");
+                //Log.i(TAG, "@id : " + id);
+
+                JSONObject naam = json_obj.getJSONObject("name");
+                // Log.i(TAG, "naam : " + naam.toString());
+
+                String nl_benaming = naam.getString("nl");
+                //Log.i(TAG, "nl_benaming : " + nl_benaming);
+
                 // initialisatie en aanmaken nieuw Categorie object
                 Categorie categorie = new Categorie();
-                categorie.setCategorieID(json_obj.getString("id"));
-                categorie.setCategorieTitel(json_obj.getString("title"));
+                categorie.setCategorieID(json_obj.getString("@id"));
+                categorie.setTitel(naam.getString("nl"));
 
                 // toevoegen object categorie aan database CategorieDB
                 categorieDB.addCategorie(categorie);

@@ -68,13 +68,6 @@ tools:context="be.davygevaert.gentsefeesten.InfoActivity">
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp" />
 
-            <ImageView
-                android:id="@+id/iv_info_linkedin"
-                android:src="@drawable/ic_linkedin_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp" />
-
         </LinearLayout>
 
         <LinearLayout

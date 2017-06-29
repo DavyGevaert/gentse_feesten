@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -17,16 +16,15 @@ import be.davygevaert.gentsefeesten.adapter.LocatieRecyclerAdapter;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.databank.LocatieDB;
 import be.davygevaert.gentsefeesten.fragment.NavigationDrawerFragment;
-import be.davygevaert.gentsefeesten.model.Data;
+import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.tools.Animation;
-import be.davygevaert.gentsefeesten.tools.Tools;
 
 
 public class LocatieActivity extends AppCompatActivity {
 
     private static String TAG = LocatieActivity.class.getSimpleName();
 
-    private Data mData;
+    private Event mEvent;
     private Toolbar toolbar;
     private LocatieDB locatieDB;
     private Constants.AnimType type;
@@ -42,19 +40,16 @@ public class LocatieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locatie);
 
-        mData = getIntent().getParcelableExtra("huidigDataObj");
-        Log.i(TAG, "dag van gekozen data object is : " + mData.getDay());
-
         // verkrijgen waarden uit Intent
         type = (Constants.AnimType) getIntent().getSerializableExtra(Constants.KEY_TYPE);
-        mData = getIntent().getParcelableExtra("huidigDataObj");
+        mEvent = getIntent().getParcelableExtra("huidigEventObj");
 
         // initialiseren variabelen
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_locatie);
 
         // instellen toolbar
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Tools.ConvertDay_To_DayStartingWithCap(mData));
+        getSupportActionBar().setTitle(mEvent.getStartDatumShort() + "/2017");
         toolbar.setSubtitle("Kies een locatie");
 
         locatieDB = new LocatieDB(this);
@@ -70,7 +65,7 @@ public class LocatieActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Locatie);
         // toekennen adapter aan huidige context en lijst locatie-objecten vanuit intent verkregen
-        LocatieRecyclerAdapter adapter = new LocatieRecyclerAdapter(this, locatieDB.getLocaties(), mData);
+        LocatieRecyclerAdapter adapter = new LocatieRecyclerAdapter(this, locatieDB.getLocatiesByDate(mEvent.getStartDatumShort()), mEvent);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);

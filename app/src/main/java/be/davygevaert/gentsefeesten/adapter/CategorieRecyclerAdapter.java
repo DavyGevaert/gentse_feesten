@@ -17,7 +17,7 @@ import be.davygevaert.gentsefeesten.EventActivity;
 import be.davygevaert.gentsefeesten.R;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.model.Categorie;
-import be.davygevaert.gentsefeesten.model.Data;
+import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.tools.Animation;
 
 /**
@@ -27,14 +27,14 @@ public class CategorieRecyclerAdapter extends RecyclerView.Adapter<CategorieRecy
 
     private static final String TAG = CategorieRecyclerAdapter.class.getSimpleName();
 
-    private Data mData;
+    private Event mEvent;
     private List<Categorie> mCategorieen;
     private LayoutInflater mInflater;
     private Context context;
 
-    public CategorieRecyclerAdapter(Context context, ArrayList<Categorie> categorieArrayList, Data data) {
+    public CategorieRecyclerAdapter(Context context, ArrayList<Categorie> categorieArrayList, Event event) {
         this.mCategorieen = categorieArrayList;
-        this.mData = data;
+        this.mEvent = event;
         this.mInflater = LayoutInflater.from(context);
     }
 
@@ -79,7 +79,7 @@ public class CategorieRecyclerAdapter extends RecyclerView.Adapter<CategorieRecy
         public void setCategorie(Categorie currentCategorie, int position) {
 
             for (Categorie c : mCategorieen) {
-                this.tv_categorie.setText(currentCategorie.getCategorieTitel());
+                this.tv_categorie.setText(currentCategorie.getTitel());
             }
             this.position = position;
         }
@@ -110,8 +110,8 @@ public class CategorieRecyclerAdapter extends RecyclerView.Adapter<CategorieRecy
             // verkrijg huidig Categorie object
             Categorie currentCategorieObj = (Categorie) mCategorieen.get(position);
 
-            // meegeven huidig Data object aan lokale Intent
-            intent.putExtra("huidigDataObj", mData);
+            // meegeven huidig Event Object met gekozen short datum notatie aan lokale Intent
+            intent.putExtra("huidigEventObj", mEvent);
             // meegeven huidig Categorie object aan lokale Intent
             intent.putExtra("huidigCategorieObj", currentCategorieObj);
 

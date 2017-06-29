@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class Categorie implements Parcelable {
     private String categorieID;
-    private String categorieTitel;
+    private String titel;
 
     public Categorie() {
         // lege constructor
@@ -22,17 +22,17 @@ public class Categorie implements Parcelable {
         this.categorieID = categorieID;
     }
 
-    public String getCategorieTitel() {
-        return categorieTitel;
+    public String getTitel() {
+        return titel;
     }
 
-    public void setCategorieTitel(String categorieTitel) {
-        this.categorieTitel = categorieTitel;
+    public void setTitel(String titel) {
+        this.titel = titel;
     }
 
     public Categorie(Parcel in) {
         categorieID = in.readString();
-        categorieTitel = in.readString();
+        titel = in.readString();
     }
 
     public static final Parcelable.Creator<Categorie> CREATOR =
@@ -56,6 +56,6 @@ public class Categorie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(categorieID);
-        dest.writeString(categorieTitel);
+        dest.writeString(titel);
     }
 }

@@ -8,59 +8,45 @@ import android.os.Parcelable;
  */
 public class Event implements Parcelable {
     private String id;
-    private String activiteitsId;
-    private String titel;
-    private String modified;
-    private String omschrijving;
-    private String datum;
-    private String periode;
-    private String startuur;
-    private String einduur;
-    private String tijdstip_sortering;
-    private String uitmetvlieg;
-    private String inhetgents;
-    private String afbeelding;
-    private String doventolk;
-    private String organisatie;
-    private String organisator_id;
-    private String gents_initiatief;
-    private String videos;
-    private String zoekwoorden;
-    private String meer_info;
-    private String festival;
-    private String ghent_selection;
-    private String url;
-    private String organisatie_website;
-    private String gratis;
-    private String aparte_prijs_vvk;
+    private String naam;
+    private String type;
+    private String contactPuntId;
+    private String bijdragerType;      // (bijdrager = contributor)
+    private String bijdragerNaam;
+    private String beschrijving;
+    private String afbeeldingUrl;
+    private String afbeeldingThumbNail;
+    private String afbeeldingTitel;
+    private String taal;
+    private String isGratisToegang;
+    private String maaktDeelUitVan;
+    private String rolstoelToegankelijkheid;
+    private String kernwoorden;
+    private String locatieId;
+    private String startDatumLong;
+    private String startDatumShort;
+    private String startUur;
+    private String eindUur;
+    private String organisatorId;
+    private String categorieId;
+    private String websiteUrl;
+    private String videoUrl;            // embedUrl
+    private String videoThumbnail;      // thumbnail
+    private String videoOnderschrift;   // caption
+
+    // "video":[{"embedUrl":"https://www.youtube.com/embed/EOTNuIA4uKI"
+    // "thumbnail":"http://img.youtube.com/vi/EOTNuIA4uKI/maxresdefault.jpg",
+    // "caption":"Low Land Home - Underspoken (Official Music Video)"}]
+
     private String prijs;
+    private String wisselkoers;
     private String prijs_omschrijving;
-    private String prijs_vvk;
-    private String prijs_vvk_omschrijving;
+    private String voorverkoopPrijs;
+    private String verkrijgbaarheid;
     private String korting;
-    private String categorie_id;
-    private String categorie_naam;
-    private String toegankelijk_rolstoel;
-    private String overkoepelende_titel;
-    private String overkoepelende_omschrijving;
-    private String locatie_id;
-    private String locatie;
-    private String sublocatie;
-    private String straat;
-    private String huisnummer;
-    private String bus;
-    private String postcode;
-    private String gemeente;
-    private String latitude;
-    private String longitude;
-    private String dagklapper;
-
-    // onderstaande zijn in json elk een array ==> []
-    private String infopunt;
-    private String reservatiepunt;
-
-    // dit is een json object in json ==> {}
-    private String extra_category;
+    private Categorie categorie;
+    private Locatie locatie;
+    private Organisator organisator;
 
     public Event() {
         // lege constructor
@@ -74,204 +60,204 @@ public class Event implements Parcelable {
         this.id = id;
     }
 
-    public String getActiviteitsId() {
-        return activiteitsId;
+    public String getNaam() {
+        return naam;
     }
 
-    public void setActiviteitsId(String activiteitsId) {
-        this.activiteitsId = activiteitsId;
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 
-    public String getTitel() {
-        return titel;
+    public String getType() {
+        return type;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getModified() {
-        return modified;
+    public String getContactPuntId() {
+        return contactPuntId;
     }
 
-    public void setModified(String modified) {
-        this.modified = modified;
+    public void setContactPuntId(String contactPuntId) {
+        this.contactPuntId = contactPuntId;
     }
 
-    public String getOmschrijving() {
-        return omschrijving;
+    public String getBijdragerType() {
+        return bijdragerType;
     }
 
-    public void setOmschrijving(String omschrijving) {
-        this.omschrijving = omschrijving;
+    public void setBijdragerType(String bijdragerType) {
+        this.bijdragerType = bijdragerType;
     }
 
-    public String getDatum() {
-        return datum;
+    public String getBijdragerNaam() {
+        return bijdragerNaam;
     }
 
-    public void setDatum(String datum) {
-        this.datum = datum;
+    public void setBijdragerNaam(String bijdragerNaam) {
+        this.bijdragerNaam = bijdragerNaam;
     }
 
-    public String getPeriode() {
-        return periode;
+    public String getBeschrijving() {
+        return beschrijving;
     }
 
-    public void setPeriode(String periode) {
-        this.periode = periode;
+    public void setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
     }
 
-    public String getStartuur() {
-        return startuur;
+    public String getAfbeeldingUrl() {
+        return afbeeldingUrl;
     }
 
-    public void setStartuur(String startuur) {
-        this.startuur = startuur;
+    public void setAfbeeldingUrl(String afbeeldingUrl) {
+        this.afbeeldingUrl = afbeeldingUrl;
     }
 
-    public String getEinduur() {
-        return einduur;
+    public String getAfbeeldingThumbNail() {
+        return afbeeldingThumbNail;
     }
 
-    public void setEinduur(String einduur) {
-        this.einduur = einduur;
+    public void setAfbeeldingThumbNail(String afbeeldingThumbNail) {
+        this.afbeeldingThumbNail = afbeeldingThumbNail;
     }
 
-    public String getTijdstip_sortering() {
-        return tijdstip_sortering;
+    public String getAfbeeldingTitel() {
+        return afbeeldingTitel;
     }
 
-    public void setTijdstip_sortering(String tijdstip_sortering) {
-        this.tijdstip_sortering = tijdstip_sortering;
+    public void setAfbeeldingTitel(String afbeeldingTitel) {
+        this.afbeeldingTitel = afbeeldingTitel;
     }
 
-    public String getUitmetvlieg() {
-        return uitmetvlieg;
+    public String getTaal() {
+        return taal;
     }
 
-    public void setUitmetvlieg(String uitmetvlieg) {
-        this.uitmetvlieg = uitmetvlieg;
+    public void setTaal(String taal) {
+        this.taal = taal;
     }
 
-    public String getInhetgents() {
-        return inhetgents;
+    public String getIsGratisToegang() {
+        return isGratisToegang;
     }
 
-    public void setInhetgents(String inhetgents) {
-        this.inhetgents = inhetgents;
+    public void setIsGratisToegang(String isGratisToegang) {
+        this.isGratisToegang = isGratisToegang;
     }
 
-    public String getAfbeelding() {
-        return afbeelding;
+    public String getMaaktDeelUitVan() {
+        return maaktDeelUitVan;
     }
 
-    public void setAfbeelding(String afbeelding) {
-        this.afbeelding = afbeelding;
+    public void setMaaktDeelUitVan(String maaktDeelUitVan) {
+        this.maaktDeelUitVan = maaktDeelUitVan;
     }
 
-    public String getDoventolk() {
-        return doventolk;
+    public String getRolstoelToegankelijkheid() {
+        return rolstoelToegankelijkheid;
     }
 
-    public void setDoventolk(String doventolk) {
-        this.doventolk = doventolk;
+    public void setRolstoelToegankelijkheid(String rolstoelToegankelijkheid) {
+        this.rolstoelToegankelijkheid = rolstoelToegankelijkheid;
     }
 
-    public String getOrganisatie() {
-        return organisatie;
+    public String getKernwoorden() {
+        return kernwoorden;
     }
 
-    public void setOrganisatie(String organisatie) {
-        this.organisatie = organisatie;
+    public void setKernwoorden(String kernwoorden) {
+        this.kernwoorden = kernwoorden;
     }
 
-    public String getOrganisator_id() {
-        return organisator_id;
+    public String getLocatieId() {
+        return locatieId;
     }
 
-    public void setOrganisator_id(String organisator_id) {
-        this.organisator_id = organisator_id;
+    public void setLocatieId(String locatieId) {
+        this.locatieId = locatieId;
     }
 
-    public String getGents_initiatief() {
-        return gents_initiatief;
+    public String getStartDatumLong() {
+        return startDatumLong;
     }
 
-    public void setGents_initiatief(String gents_initiatief) {
-        this.gents_initiatief = gents_initiatief;
+    public void setStartDatumLong(String startDatumLong) {
+        this.startDatumLong = startDatumLong;
     }
 
-    public String getVideos() {
-        return videos;
+    public String getStartDatumShort() {
+        return startDatumShort;
     }
 
-    public void setVideos(String videos) {
-        this.videos = videos;
+    public void setStartDatumShort(String startDatumShort) {
+        this.startDatumShort = startDatumShort;
     }
 
-    public String getZoekwoorden() {
-        return zoekwoorden;
+    public String getStartUur() {
+        return startUur;
     }
 
-    public void setZoekwoorden(String zoekwoorden) {
-        this.zoekwoorden = zoekwoorden;
+    public void setStartUur(String startUur) {
+        this.startUur = startUur;
     }
 
-    public String getMeer_info() {
-        return meer_info;
+    public String getEindUur() {
+        return eindUur;
     }
 
-    public void setMeer_info(String meer_info) {
-        this.meer_info = meer_info;
+    public void setEindUur(String eindUur) {
+        this.eindUur = eindUur;
     }
 
-    public String getFestival() {
-        return festival;
+    public String getOrganisatorId() {
+        return organisatorId;
     }
 
-    public void setFestival(String festival) {
-        this.festival = festival;
+    public void setOrganisatorId(String organisatorId) {
+        this.organisatorId = organisatorId;
     }
 
-    public String getGhent_selection() {
-        return ghent_selection;
+    public String getCategorieId() {
+        return categorieId;
     }
 
-    public void setGhent_selection(String ghent_selection) {
-        this.ghent_selection = ghent_selection;
+    public void setCategorieId(String categorieId) {
+        this.categorieId = categorieId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getWebsiteUrl() {
+        return websiteUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
     }
 
-    public String getOrganisatie_website() {
-        return organisatie_website;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setOrganisatie_website(String organisatie_website) {
-        this.organisatie_website = organisatie_website;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
-    public String getGratis() {
-        return gratis;
+    public String getVideoThumbnail() {
+        return videoThumbnail;
     }
 
-    public void setGratis(String gratis) {
-        this.gratis = gratis;
+    public void setVideoThumbnail(String videoThumbnail) {
+        this.videoThumbnail = videoThumbnail;
     }
 
-    public String getAparte_prijs_vvk() {
-        return aparte_prijs_vvk;
+    public String getVideoOnderschrift() {
+        return videoOnderschrift;
     }
 
-    public void setAparte_prijs_vvk(String aparte_prijs_vvk) {
-        this.aparte_prijs_vvk = aparte_prijs_vvk;
+    public void setVideoOnderschrift(String videoOnderschrift) {
+        this.videoOnderschrift = videoOnderschrift;
     }
 
     public String getPrijs() {
@@ -282,8 +268,12 @@ public class Event implements Parcelable {
         this.prijs = prijs;
     }
 
-    public String getPrijs_vvk() {
-        return prijs_vvk;
+    public String getWisselkoers() {
+        return wisselkoers;
+    }
+
+    public void setWisselkoers(String wisselkoers) {
+        this.wisselkoers = wisselkoers;
     }
 
     public String getPrijs_omschrijving() {
@@ -294,16 +284,20 @@ public class Event implements Parcelable {
         this.prijs_omschrijving = prijs_omschrijving;
     }
 
-    public void setPrijs_vvk(String prijs_vvk) {
-        this.prijs_vvk = prijs_vvk;
+    public String getVoorverkoopPrijs() {
+        return voorverkoopPrijs;
     }
 
-    public String getPrijs_vvk_omschrijving() {
-        return prijs_vvk_omschrijving;
+    public void setVoorverkoopPrijs(String voorverkoopPrijs) {
+        this.voorverkoopPrijs = voorverkoopPrijs;
     }
 
-    public void setPrijs_vvk_omschrijving(String prijs_vvk_omschrijving) {
-        this.prijs_vvk_omschrijving = prijs_vvk_omschrijving;
+    public String getVerkrijgbaarheid() {
+        return verkrijgbaarheid;
+    }
+
+    public void setVerkrijgbaarheid(String verkrijgbaarheid) {
+        this.verkrijgbaarheid = verkrijgbaarheid;
     }
 
     public String getKorting() {
@@ -314,206 +308,66 @@ public class Event implements Parcelable {
         this.korting = korting;
     }
 
-    public String getCategorie_id() {
-        return categorie_id;
+    public Categorie getCategorie() {
+        return categorie;
     }
 
-    public void setCategorie_id(String categorie_id) {
-        this.categorie_id = categorie_id;
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
     }
 
-    public String getCategorie_naam() {
-        return categorie_naam;
-    }
-
-    public void setCategorie_naam(String categorie_naam) {
-        this.categorie_naam = categorie_naam;
-    }
-
-    public String getToegankelijk_rolstoel() {
-        return toegankelijk_rolstoel;
-    }
-
-    public void setToegankelijk_rolstoel(String toegankelijk_rolstoel) {
-        this.toegankelijk_rolstoel = toegankelijk_rolstoel;
-    }
-
-    public String getOverkoepelende_titel() {
-        return overkoepelende_titel;
-    }
-
-    public void setOverkoepelende_titel(String overkoepelende_titel) {
-        this.overkoepelende_titel = overkoepelende_titel;
-    }
-
-    public String getOverkoepelende_omschrijving() {
-        return overkoepelende_omschrijving;
-    }
-
-    public void setOverkoepelende_omschrijving(String overkoepelende_omschrijving) {
-        this.overkoepelende_omschrijving = overkoepelende_omschrijving;
-    }
-
-    public String getLocatie_id() {
-        return locatie_id;
-    }
-
-    public void setLocatie_id(String locatie_id) {
-        this.locatie_id = locatie_id;
-    }
-
-    public String getLocatie() {
+    public Locatie getLocatie() {
         return locatie;
     }
 
-    public void setLocatie(String locatie) {
+    public void setLocatie(Locatie locatie) {
         this.locatie = locatie;
     }
 
-    public String getSublocatie() {
-        return sublocatie;
+    public Organisator getOrganisator() {
+        return organisator;
     }
 
-    public void setSublocatie(String sublocatie) {
-        this.sublocatie = sublocatie;
-    }
-
-    public String getStraat() {
-        return straat;
-    }
-
-    public void setStraat(String straat) {
-        this.straat = straat;
-    }
-
-    public String getHuisnummer() {
-        return huisnummer;
-    }
-
-    public void setHuisnummer(String huisnummer) {
-        this.huisnummer = huisnummer;
-    }
-
-    public String getBus() {
-        return bus;
-    }
-
-    public void setBus(String bus) {
-        this.bus = bus;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
-    public String getGemeente() {
-        return gemeente;
-    }
-
-    public void setGemeente(String gemeente) {
-        this.gemeente = gemeente;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getDagklapper() {
-        return dagklapper;
-    }
-
-    public void setDagklapper(String dagklapper) {
-        this.dagklapper = dagklapper;
-    }
-
-    public String getInfopunt() {
-        return infopunt;
-    }
-
-    public void setInfopunt(String infopunt) {
-        this.infopunt = infopunt;
-    }
-
-    public String getReservatiepunt() {
-        return reservatiepunt;
-    }
-
-    public void setReservatiepunt(String reservatiepunt) {
-        this.reservatiepunt = reservatiepunt;
-    }
-
-    public String getExtra_category() {
-        return extra_category;
-    }
-
-    public void setExtra_category(String extra_category) {
-        this.extra_category = extra_category;
+    public void setOrganisator(Organisator organisator) {
+        this.organisator = organisator;
     }
 
     public Event(Parcel in) {
         id = in.readString();
-        activiteitsId = in.readString();
-        titel = in.readString();
-        modified = in.readString();
-        omschrijving = in.readString();
-        datum = in.readString();
-        periode = in.readString();
-        startuur = in.readString();
-        einduur = in.readString();
-        tijdstip_sortering = in.readString();
-        uitmetvlieg = in.readString();
-        inhetgents = in.readString();
-        afbeelding = in.readString();
-        doventolk = in.readString();
-        organisatie = in.readString();
-        organisator_id = in.readString();
-        gents_initiatief = in.readString();
-        videos = in.readString();
-        zoekwoorden = in.readString();
-        meer_info = in.readString();
-        festival = in.readString();
-        ghent_selection = in.readString();
-        url = in.readString();
-        organisatie_website = in.readString();
-        gratis = in.readString();
-        aparte_prijs_vvk = in.readString();
+        naam = in.readString();
+        type = in.readString();
+        contactPuntId = in.readString();
+        bijdragerType = in.readString();
+        bijdragerNaam = in.readString();
+        beschrijving = in.readString();
+        afbeeldingUrl = in.readString();
+        afbeeldingThumbNail = in.readString();
+        afbeeldingTitel = in.readString();
+        taal = in.readString();
+        isGratisToegang = in.readString();
+        maaktDeelUitVan = in.readString();
+        rolstoelToegankelijkheid = in.readString();
+        kernwoorden = in.readString();
+        locatieId = in.readString();
+        startDatumLong = in.readString();
+        startDatumShort = in.readString();
+        startUur = in.readString();
+        eindUur = in.readString();
+        organisatorId = in.readString();
+        categorieId = in.readString();
+        websiteUrl = in.readString();
+        videoUrl = in.readString();
+        videoThumbnail = in.readString();
+        videoOnderschrift = in.readString();
         prijs = in.readString();
+        wisselkoers = in.readString();
         prijs_omschrijving = in.readString();
-        prijs_vvk = in.readString();
-        prijs_vvk_omschrijving = in.readString();
+        voorverkoopPrijs = in.readString();
+        verkrijgbaarheid = in.readString();
         korting = in.readString();
-        categorie_id = in.readString();
-        categorie_naam = in.readString();
-        toegankelijk_rolstoel = in.readString();
-        overkoepelende_titel = in.readString();
-        overkoepelende_omschrijving = in.readString();
-        locatie_id = in.readString();
-        locatie = in.readString();
-        sublocatie = in.readString();
-        straat = in.readString();
-        huisnummer = in.readString();
-        bus = in.readString();
-        postcode = in.readString();
-        gemeente = in.readString();
-        latitude = in.readString();
-        longitude = in.readString();
-        dagklapper = in.readString();
+        categorie = in.readParcelable(Categorie.class.getClassLoader());
+        locatie = in.readParcelable(Locatie.class.getClassLoader());
+        organisator = in.readParcelable(Organisator.class.getClassLoader());
     }
 
     public static final Creator<Event> CREATOR =
@@ -537,51 +391,39 @@ public class Event implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(activiteitsId);
-        dest.writeString(titel);
-        dest.writeString(modified);
-        dest.writeString(omschrijving);
-        dest.writeString(datum);
-        dest.writeString(periode);
-        dest.writeString(startuur);
-        dest.writeString(einduur);
-        dest.writeString(tijdstip_sortering);
-        dest.writeString(uitmetvlieg);
-        dest.writeString(inhetgents);
-        dest.writeString(afbeelding);
-        dest.writeString(doventolk);
-        dest.writeString(organisatie);
-        dest.writeString(organisator_id);
-        dest.writeString(gents_initiatief);
-        dest.writeString(videos);
-        dest.writeString(zoekwoorden);
-        dest.writeString(meer_info);
-        dest.writeString(festival);
-        dest.writeString(ghent_selection);
-        dest.writeString(url);
-        dest.writeString(organisatie_website);
-        dest.writeString(gratis);
-        dest.writeString(aparte_prijs_vvk);
+        dest.writeString(naam);
+        dest.writeString(type);
+        dest.writeString(contactPuntId);
+        dest.writeString(bijdragerType);
+        dest.writeString(bijdragerNaam);
+        dest.writeString(beschrijving);
+        dest.writeString(afbeeldingUrl);
+        dest.writeString(afbeeldingThumbNail);
+        dest.writeString(afbeeldingTitel);
+        dest.writeString(taal);
+        dest.writeString(isGratisToegang);
+        dest.writeString(maaktDeelUitVan);
+        dest.writeString(rolstoelToegankelijkheid);
+        dest.writeString(kernwoorden);
+        dest.writeString(locatieId);
+        dest.writeString(startDatumLong);
+        dest.writeString(startDatumShort);
+        dest.writeString(startUur);
+        dest.writeString(eindUur);
+        dest.writeString(organisatorId);
+        dest.writeString(categorieId);
+        dest.writeString(websiteUrl);
+        dest.writeString(videoUrl);
+        dest.writeString(videoThumbnail);
+        dest.writeString(videoOnderschrift);
         dest.writeString(prijs);
+        dest.writeString(wisselkoers);
         dest.writeString(prijs_omschrijving);
-        dest.writeString(prijs_vvk);
-        dest.writeString(prijs_vvk_omschrijving);
+        dest.writeString(voorverkoopPrijs);
+        dest.writeString(verkrijgbaarheid);
         dest.writeString(korting);
-        dest.writeString(categorie_id);
-        dest.writeString(categorie_naam);
-        dest.writeString(toegankelijk_rolstoel);
-        dest.writeString(overkoepelende_titel);
-        dest.writeString(overkoepelende_omschrijving);
-        dest.writeString(locatie_id);
-        dest.writeString(locatie);
-        dest.writeString(sublocatie);
-        dest.writeString(straat);
-        dest.writeString(huisnummer);
-        dest.writeString(bus);
-        dest.writeString(postcode);
-        dest.writeString(gemeente);
-        dest.writeString(latitude);
-        dest.writeString(longitude);
-        dest.writeString(dagklapper);
+        dest.writeParcelable(categorie, flags);
+        dest.writeParcelable(locatie, flags);
+        dest.writeParcelable(organisator, flags);
     }
 }

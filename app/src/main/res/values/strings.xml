@@ -26,7 +26,7 @@
     <string name="parking_naam">parking naam</string>
     <string name="parking_adres">parking adres</string>
     <string name="bezetting">bezetting</string>
-    <string name="info_omschrijving">Applicatie over de Gentse Feesten 2016.\n\nGemaakt met Android Studio in de programmeertaal Java.
+    <string name="info_omschrijving">Applicatie over de Gentse Feesten 2017.\n\nGemaakt met Android Studio in de programmeertaal Java.
                                     \n\nMet dank aan het Open Data portaal van de Stad Gent voor het gebruik van de open datasets, te bereiken op\nhttp://data.gent.be/
                                     \n\nIk ben niet verantwoordelijk voor enige ontbrekende inhoud.</string>
     <string name="info_davy_gevaert">Gemaakt door Davy Gevaert</string>
@@ -39,8 +39,10 @@
     <string name="info_adres">Adres :</string>
     <string name="info_organisatie">Organisatie :</string>
     <string name="info_route">Route :</string>
+    <string name="archief">Archief video :</string>
     <string name="website">Website :</string>
     <string name="prijs">Prijs :</string>
+    <string name="korting">Korting voor :</string>
     <string name="extra_info_prijs">Extra info :</string>
     <string name="title_activity_info_gent">InfoGentActivity</string>
     <string name="info_gent">09 210 10 10\n\nAlle dagen van de Gentse feesten van 08:00 tot 19:00 uur voor alle vragen en meldingen.</string>

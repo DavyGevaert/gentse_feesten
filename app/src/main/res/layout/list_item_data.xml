@@ -25,7 +25,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="10dp"
                     android:contentDescription="@string/thumbnail"
-                    android:src="@drawable/gf60x60"/>
+                    android:src="@drawable/gflogo_twitter_400x400"/>
 
                 <TextView
                     android:id="@+id/tv_dag_datum"

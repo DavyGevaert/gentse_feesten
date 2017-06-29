@@ -16,7 +16,7 @@ import java.util.List;
 import be.davygevaert.gentsefeesten.EventActivity;
 import be.davygevaert.gentsefeesten.R;
 import be.davygevaert.gentsefeesten.constanten.Constants;
-import be.davygevaert.gentsefeesten.model.Data;
+import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.model.Locatie;
 import be.davygevaert.gentsefeesten.tools.Animation;
 
@@ -27,14 +27,14 @@ public class LocatieRecyclerAdapter extends RecyclerView.Adapter<LocatieRecycler
 
     private static final String TAG = LocatieRecyclerAdapter.class.getSimpleName();
 
-    private Data mData;
+    private Event mEvent;
     private List<Locatie> mLocaties;
     private LayoutInflater mInflater;
     private Context context;
 
-    public LocatieRecyclerAdapter(Context context, ArrayList<Locatie> locatieArrayList, Data data) {
+    public LocatieRecyclerAdapter(Context context, ArrayList<Locatie> locatieArrayList, Event event) {
         this.mLocaties = locatieArrayList;
-        this.mData = data;
+        this.mEvent = event;
         this.mInflater = LayoutInflater.from(context);
     }
 
@@ -79,7 +79,7 @@ public class LocatieRecyclerAdapter extends RecyclerView.Adapter<LocatieRecycler
         public void setLocatie(Locatie currentLocatie, int position) {
 
             for (Locatie c : mLocaties) {
-                this.tv_locatie.setText(currentLocatie.getLocatieNaam());
+                this.tv_locatie.setText(currentLocatie.getNaam());
             }
             this.position = position;
         }
@@ -110,8 +110,8 @@ public class LocatieRecyclerAdapter extends RecyclerView.Adapter<LocatieRecycler
             // verkrijg huidig Locatie object
             Locatie currentLocatieObj = (Locatie) mLocaties.get(position);
 
-            // meegeven huidig Data object aan lokale Intent
-            intent.putExtra("huidigDataObj", mData);
+            // meegeven huidig Event Object met gekozen short datum notatie aan lokale Intent
+            intent.putExtra("huidigEventObj", mEvent);
             // meegeven huidig Locatie object aan lokale Intent
             intent.putExtra("huidigLocatieObj", currentLocatieObj);
 

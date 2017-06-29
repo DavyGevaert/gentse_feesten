@@ -9,7 +9,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import be.davygevaert.gentsefeesten.databank.EventDB;
 import be.davygevaert.gentsefeesten.model.Event;
@@ -20,7 +25,8 @@ import be.davygevaert.gentsefeesten.tools.JSON_Tools;
  */
 public class VerkrijgEventsTask extends AsyncTask<Object, Integer, EventDB> {
 
-    private static String TAG = "VerkrijgEventsTask";
+    private static String TAG = VerkrijgEventsTask.class.getSimpleName();
+
 
     private EventDB eventDB;
     private Context context;
@@ -28,6 +34,13 @@ public class VerkrijgEventsTask extends AsyncTask<Object, Integer, EventDB> {
     public VerkrijgEventsTask(Context ctx) {
         context = ctx;
     }
+
+    /* sql query
+    select *
+    from tblEvent
+    where _startuur is not null
+    group by _startdatum_long
+     */
 
     @Override
     protected EventDB doInBackground(Object... objects) {
@@ -37,7 +50,7 @@ public class VerkrijgEventsTask extends AsyncTask<Object, Integer, EventDB> {
 
             // eerste object casten naar een String waarde
             String fileName = (String) objects[0];
-            Log.i(TAG, "fileName inhoud : " + fileName);
+            //Log.i(TAG, "fileName inhoud : " + fileName);
 
             ObjectMapper mapper = new ObjectMapper();
 
@@ -46,61 +59,246 @@ public class VerkrijgEventsTask extends AsyncTask<Object, Integer, EventDB> {
             OutOfMemoryError: Failed to allocate a byte allocation with ... free bytes and 5MB until OOM
 
             naar avd manager gaan en de vm heap size van de emulator veranderen van 64mb naar 128mb
+
+            android:largeHeap="true" ook aanwezig in android manifest xml
              */
+
             JsonNode rootArray = mapper.readTree(JSON_Tools.loadJSONFromAsset(fileName, context));
 
             for (JsonNode root : rootArray) {
                 Event event = new Event();
-                event.setId(root.path("id").asText());
-                event.setActiviteitsId(root.path("activiteit_id").asText());
-                event.setTitel(root.path("titel").asText());
-                event.setModified(root.path("modified").asText());
-                event.setOmschrijving(root.path("omschrijving").asText());
-                event.setDatum(root.path("datum").asText());
-                event.setPeriode(root.path("dag").asText());
-                event.setStartuur(root.path("startuur").asText());
-                event.setEinduur(root.path("einduur").asText());
-                event.setTijdstip_sortering(root.path("tijdstip_sortering").asText());
-                event.setUitmetvlieg(root.path("uitmetvlieg").asText());
-                event.setInhetgents(root.path("inhetgents").asText());
-                event.setAfbeelding(root.path("afbeelding").asText());
-                event.setDoventolk(root.path("doventolk").asText());
-                event.setOrganisatie(root.path("organisatie").asText());
-                event.setOrganisator_id(root.path("organisator_id").asText());
-                event.setGents_initiatief(root.path("gents_initiatief").asText());
-                event.setVideos(root.path("videos").asText());
-                event.setZoekwoorden(root.path("zoekwoorden").asText());
-                event.setMeer_info(root.path("meer_info").asText());
-                event.setFestival(root.path("festival").asText());
-                event.setGhent_selection(root.path("ghent_selection").asText());
-                event.setUrl(root.path("url").asText());
-                event.setOrganisatie_website(root.path("organisatie_website").asText());
-                event.setGratis(root.path("gratis").asText());
-                event.setPrijs(root.path("prijs").asText());
-                event.setPrijs_omschrijving(root.path("prijs_omschrijving").asText());
-                event.setPrijs_vvk(root.path("prijs_vvk").asText());
-                event.setPrijs_vvk_omschrijving(root.path("prijs_vvk_omschrijving").asText());
-                event.setKorting(root.path("korting").asText());
-                event.setCategorie_id(root.path("categorie_id").asText());
-                event.setCategorie_naam(root.path("categorie_naam").asText());
-                event.setToegankelijk_rolstoel(root.path("toegankelijk_rolstoel").asText());
-                event.setOverkoepelende_titel(root.path("overkoepelende_titel").asText());
-                event.setOverkoepelende_omschrijving(root.path("overkoepelende_omschrijving").asText());
-                event.setLocatie_id(root.path("locatie_id").asText());
-                event.setLocatie(root.path("locatie").asText());
-                event.setSublocatie(root.path("sublocatie").asText());
-                event.setStraat(root.path("straat").asText());
-                event.setHuisnummer(root.path("huisnummer").asText());
-                event.setBus(root.path("bus").asText());
-                event.setPostcode(root.path("postcode").asText());
-                event.setGemeente(root.path("gemeente").asText());
-                event.setLatitude(root.path("latitude").asText());
-                event.setLongitude(root.path("longitude").asText());
-                event.setDagklapper(root.path("dagklapper").asText());
+                event.setId(root.path("@id").asText());         // werkt
+                event.setNaam(root.at("/name/nl").asText());  // werkt
+                event.setType(root.path("@type").asText());     // werkt
+
+                // werkt
+                JsonNode contactPointNode = root.path("contactPoint");
+                if (contactPointNode.isArray()){
+                    for (final JsonNode objNode : contactPointNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+                        event.setContactPuntId(objNode.asText());
+                    }
+                }
+
+                event.setBijdragerType(root.at("/contributor/@type").asText());         // werkt
+                event.setBijdragerNaam(root.at("/contributor/name/nl").asText());     // werkt
+
+                event.setBeschrijving(root.at("/description/nl").asText());     // werkt
+
+
+                event.setAfbeeldingUrl(root.at("/image/url").asText());         // werkt
+                event.setAfbeeldingThumbNail(root.at("/image/thumbnailUrl").asText());  // werkt
+                event.setAfbeeldingTitel(root.at("/image/caption").asText());   // werkt
+
+                // werkt
+                JsonNode languageNode = root.path("inLanguage");
+                if (languageNode.isArray()){
+                    for (final JsonNode objNode : languageNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+                        event.setTaal(objNode.asText());
+                    }
+                }
+
+                event.setIsGratisToegang(root.at("/isAccessibleForFree").asText());    // werkt
+
+                // werkt
+                JsonNode isPartOfNode = root.path("isPartOf");
+                if (isPartOfNode.isArray()){
+                    for (final JsonNode objNode : isPartOfNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+                        event.setMaaktDeelUitVan(objNode.asText());
+                    }
+                }
+
+                event.setRolstoelToegankelijkheid(root.at("/isWheelchairUnfriendly").asText());    // werkt
+
+                // werkt
+                JsonNode keywordsNode = root.path("keywords");
+                if (keywordsNode.isArray()){
+                    for (final JsonNode objNode : keywordsNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+                        event.setKernwoorden(objNode.asText());
+                    }
+                }
+
+                event.setLocatieId(root.at("/location").asText());  // werkt
+
+                /* onderstaande om startdate en enddate zoals tijdstipsortering methode te laten verlopen uit 2016 */
+
+                DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+                String startDatum = root.at("/startDate").asText();
+                // Log.i(TAG, "startDatum root " + startDatum);
+                String startuur = root.at("/startDate").asText();
+                String einduur = root.at("/endDate").asText();
+
+                if (startDatum.contains("null")) {
+                    // do nothing if null
+                } else {
+                    final ZonedDateTime parseStartDatum = ZonedDateTime.parse(startDatum, formatter);
+                    if (parseStartDatum != null) {
+                        // Log.i(TAG, "startdatum : " + parseStartDatum.getDayOfMonth() );
+                        event.setStartDatumLong(startDatum);
+
+                        if (parseStartDatum.getDayOfMonth() < 10) {
+                            event.setStartDatumShort("0" + parseStartDatum.getDayOfMonth() + "/07");
+                        } else {
+                            event.setStartDatumShort("" + parseStartDatum.getDayOfMonth() + "/07");
+                        }
+                    }
+                }
+
+                if (startuur.contains("null")) {
+                    // do nothing if null
+                } else {
+                    final ZonedDateTime parseStartUur = ZonedDateTime.parse(startuur, formatter);
+                    if (parseStartUur != null) {
+                        String uur = "";
+                        if (parseStartUur.getHour() <= 9) {
+                            uur = "0" + parseStartUur.getHour();
+                        } else {
+                            uur = "" + parseStartUur.getHour();
+                        }
+
+                        if (parseStartUur.getMinute() <= 9) {
+                            uur += ":0" + parseStartUur.getMinute();
+                        } else {
+                            uur += ":" + parseStartUur.getMinute();
+                        }
+                        event.setStartUur(uur);
+                    }
+                }
+
+                if (einduur.contains("null")) {
+                    // do nothing if null
+                } else {
+                    final ZonedDateTime parseEindUur = ZonedDateTime.parse(einduur, formatter);
+                    if (parseEindUur != null) {
+                        String uur = "";
+                        if (parseEindUur.getHour() <= 9) {
+                            uur = "0" + parseEindUur.getHour();
+                        } else {
+                            uur = "" + parseEindUur.getHour();
+                        }
+
+                        if (parseEindUur.getMinute() <= 9) {
+                            uur += ":0" + parseEindUur.getMinute();
+                        } else {
+                            uur += ":" + parseEindUur.getMinute();
+                        }
+                        event.setEindUur(uur);
+                    }
+                }
+
+                event.setOrganisatorId(root.at("/organizer").asText()); // werkt
+
+
+                // werkt
+                JsonNode categorieNode = root.path("theme");
+                if (categorieNode.isArray()){
+                    for (final JsonNode objNode : categorieNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+                        event.setCategorieId(objNode.asText());
+                    }
+                }
+
+                event.setWebsiteUrl(root.at("/url").asText());          // werkt
+
+                // sharedpreferences firsttimer boolean uitgeschakeld voorlopig in Splashscreen
+
+                // werkt niet ! array []
+                JsonNode videoNode = root.path("video");
+                if (videoNode.isArray()){
+                    for (final JsonNode objNode : videoNode) {
+                        // Log.i(TAG, "objNode : " + objNode);
+
+                        // Log.i(TAG, "objNode video url: " + objNode.path("embedUrl"));
+                        // Log.i(TAG, "objNode video thumbnail: " + objNode.path("thumbnail"));
+                        // Log.i(TAG, "objNode video caption: " + objNode.path("caption"));
+
+                        event.setVideoUrl(objNode.path("embedUrl").asText());
+                        event.setVideoThumbnail(objNode.path("thumbnail").asText());
+                        event.setVideoOnderschrift(objNode.path("caption").asText());
+
+                        //event.setVideo(objNode.asText());
+                    }
+                }
+
+                JsonNode offersNode = root.path("offers");
+                if (offersNode.isArray()){
+                    // Log.i(TAG, "offersNode is een array");
+                    for (final JsonNode objNode : offersNode) {
+
+                        /*
+                        Log.i(TAG, "objNode price : " + objNode.path("price"));
+                        Log.i(TAG, "objNode description: " + objNode.path("description"));
+                        Log.i(TAG, "objNode currency: " + objNode.path("priceCurrency"));
+                        Log.i(TAG, "objNode voorverkoopprijs: " + objNode.path("priceValidUntil"));
+                        */
+                        // arrays uitlezen gaat
+                        // Log.i(TAG, "objNode korting: " + objNode.path("eligibleForDiscount"));
+                        // Log.i(TAG, "objNode verkrijgbaarheid: " + objNode.path("availableAtOrFrom"));
+
+                        event.setPrijs(objNode.path("price").asText());
+                        event.setWisselkoers(objNode.path("priceCurrency").asText());
+                        event.setPrijs_omschrijving(objNode.path("description").asText());
+                        event.setVoorverkoopPrijs(objNode.path("priceValidUntil").asText());
+
+                        /*
+                        String korting = objNode.path("eligibleForDiscount").asText();
+                        event.setVerkrijgbaarheid(objNode.path("eligibleForDiscount").asText());
+
+                        String verkrijgbaarheid = objNode.path("availableAtOrFrom").asText();
+                        event.setKorting(objNode.path("availableAtOrFrom").asText());
+                        */
+
+                        // arrays
+                        JsonNode availableNode = objNode.path("availableAtOrFrom");
+                        if (availableNode.isArray()) {
+                            String availableData = "";
+
+                            for (final JsonNode innerAvailableNode : availableNode) {
+                                // Log.i(TAG, "innerAvailableNode : " + innerAvailableNode.asText());
+                                availableData += innerAvailableNode.asText();
+                                // elke availableData string met een komma en spatie erbij plaatsen
+                                availableData += ", ";
+                            }
+
+                            if (availableData.isEmpty()) {
+                                // do nothing
+                            } else {
+                                // de laatste 2 karakters (spatie en komma verwijderen)
+                                availableData = availableData.substring(0, availableData.length() - 2);
+                            }
+
+                            event.setVerkrijgbaarheid(availableData);
+                        }
+
+                        JsonNode discountNode = objNode.path("eligibleForDiscount");
+                        if (discountNode.isArray()) {
+                            String discountData = "";
+                            for (final JsonNode innerDiscountNode : discountNode) {
+                                // Log.i(TAG, "innerDiscountNode : " + innerDiscountNode.asText());
+                                discountData += innerDiscountNode.asText();
+                                // elke discountData string met een komma en spatie erbij plaatsen
+                                discountData += ", ";
+                            }
+
+                            if (discountData.isEmpty()) {
+                                // do nothing
+                            } else {
+                                // de laatste 2 karakters (spatie en komma verwijderen)
+                                discountData = discountData.substring(0, discountData.length() - 2);
+                            }
+
+                            event.setKorting(discountData);
+                        }
+
+
+                    }
+                }
 
                 eventDB.addEvent(event);
             }
-
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -117,4 +315,3 @@ public class VerkrijgEventsTask extends AsyncTask<Object, Integer, EventDB> {
         super.onPostExecute(eventDB);
     }
 }
-

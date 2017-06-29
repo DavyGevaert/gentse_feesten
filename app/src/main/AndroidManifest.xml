@@ -5,14 +5,16 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- onderstaande permissies worden enkel gebruikt bij het aanmaken van een sqlite database op je sd-kaart (voor debugging doeleinden) met sqliteadmin.exe -->
-    <!--
+
+    <!---
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/gf120x120"
+        android:largeHeap="true"
+        android:icon="@drawable/gflogo_twitter_400x400"
         android:label="@string/app_name"
         android:theme="@style/MaterialTheme" >
 

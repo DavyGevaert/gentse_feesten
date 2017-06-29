@@ -16,16 +16,15 @@ import be.davygevaert.gentsefeesten.adapter.CategorieRecyclerAdapter;
 import be.davygevaert.gentsefeesten.constanten.Constants;
 import be.davygevaert.gentsefeesten.databank.CategorieDB;
 import be.davygevaert.gentsefeesten.fragment.NavigationDrawerFragment;
-import be.davygevaert.gentsefeesten.model.Data;
+import be.davygevaert.gentsefeesten.model.Event;
 import be.davygevaert.gentsefeesten.tools.Animation;
-import be.davygevaert.gentsefeesten.tools.Tools;
 
 
 public class CategorieActivity extends AppCompatActivity {
 
     private static String TAG = CategorieActivity.class.getSimpleName();
 
-    private Data mData;
+    private Event mEvent;
     private Toolbar toolbar;
     private CategorieDB categorieDB;
     private Constants.AnimType type;
@@ -43,14 +42,14 @@ public class CategorieActivity extends AppCompatActivity {
 
         // verkrijgen waarden uit Intent
         type = (Constants.AnimType) getIntent().getSerializableExtra(Constants.KEY_TYPE);
-        mData = getIntent().getParcelableExtra("huidigDataObj");
+        mEvent = getIntent().getParcelableExtra("huidigEventObj");
 
         // initialiseren variabelen
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_categorie);
 
         // instellen toolbar
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Tools.ConvertDay_To_DayStartingWithCap(mData));
+        getSupportActionBar().setTitle(mEvent.getStartDatumShort() + "/2017");
         toolbar.setSubtitle("Kies een categorie");
 
         categorieDB = new CategorieDB(this);
@@ -66,7 +65,7 @@ public class CategorieActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Categorie);
         // toekennen adapter aan huidige context en lijst categorie-objecten vanuit intent verkregen
-        CategorieRecyclerAdapter adapter = new CategorieRecyclerAdapter(this, categorieDB.getCategorieen(), mData);
+        CategorieRecyclerAdapter adapter = new CategorieRecyclerAdapter(this, categorieDB.getCategorieenByDate(mEvent.getStartDatumShort()), mEvent);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);

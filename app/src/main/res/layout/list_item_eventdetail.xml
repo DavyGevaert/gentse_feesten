@@ -42,8 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_categorie"
-                    android:layout_gravity="center"
                     android:textColor="@color/material_blue_grey_800"
+                    android:textStyle="bold|italic"
                     android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp" />
@@ -53,7 +53,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tekst"
-                    android:layout_gravity="center"
                     android:textColor="@color/material_blue_grey_800"
                     android:textSize="18sp"
                     android:layout_marginLeft="10dp"
@@ -84,6 +83,7 @@
                     android:text="@string/info_organisatie"
                     android:textColor="@color/material_blue_grey_800"
                     android:textSize="18sp"
+                    android:textStyle="bold|italic"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp" />
 
@@ -111,6 +111,7 @@
                             android:text="@string/info_adres"
                             android:textColor="@color/material_blue_grey_800"
                             android:textSize="18sp"
+                            android:textStyle="bold|italic"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp" />
 
@@ -136,11 +137,38 @@
                             android:text="@string/prijs"
                             android:textColor="@color/material_blue_grey_800"
                             android:textSize="18sp"
+                            android:textStyle="bold|italic"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"/>
 
                         <TextView
                             android:id="@+id/tv_eventdetail_prijs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tekst"
+                            android:textColor="@color/material_blue_grey_800"
+                            android:textSize="18sp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"/>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/tv_eventdetail_prijs_korting_links"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/korting"
+                            android:textColor="@color/material_blue_grey_800"
+                            android:textSize="18sp"
+                            android:textStyle="bold|italic"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_eventdetail_prijs_korting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/tekst"
@@ -184,6 +212,7 @@
                             android:text="@string/website"
                             android:textColor="@color/material_blue_grey_800"
                             android:textSize="18sp"
+                            android:textStyle="bold|italic"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp" />
 
@@ -202,12 +231,38 @@
                     <TableRow>
 
                         <TextView
+                            android:id="@+id/tv_eventdetail_archief_links"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/archief"
+                            android:textColor="@color/material_blue_grey_800"
+                            android:textSize="18sp"
+                            android:textStyle="bold|italic"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp" />
+
+                        <ImageView
+                            android:id="@+id/iv_youtube"
+                            android:src="@drawable/ic_play_circle_outline_black_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
                             android:id="@+id/tv_eventdetail_route_links"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/info_route"
                             android:textColor="@color/material_blue_grey_800"
                             android:textSize="18sp"
+                            android:textStyle="bold|italic"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp" />
 

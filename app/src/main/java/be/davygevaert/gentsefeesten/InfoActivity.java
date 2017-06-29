@@ -23,7 +23,7 @@ public class InfoActivity extends AppCompatActivity {
     private static final String TAG = InfoActivity.class.getSimpleName();
 
     private Toolbar toolbar;
-    private ImageView iv_twitter, iv_linkedin, iv_sourcecode;
+    private ImageView iv_twitter, iv_sourcecode;
     private Constants.AnimType type;
 
     @Override
@@ -49,7 +49,6 @@ public class InfoActivity extends AppCompatActivity {
 
         // initialiseren variabelen
         iv_twitter = (ImageView) findViewById(R.id.iv_info_twitter);
-        iv_linkedin = (ImageView) findViewById(R.id.iv_info_linkedin);
         iv_sourcecode = (ImageView) findViewById(R.id.iv_info_sourcecode);
 
         // listeners voor imageviews
@@ -57,15 +56,6 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("https://twitter.com/DavyGevaert"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        iv_linkedin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://be.linkedin.com/in/davygevaert"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

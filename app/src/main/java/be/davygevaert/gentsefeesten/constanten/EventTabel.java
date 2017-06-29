@@ -7,53 +7,39 @@ public interface EventTabel {
     // interface automatisch static en final
 
     String TABEL_NAAM = "tblEvent";
-    String ID = "_id";
-    String ACTIVITEIT_ID = "_activiteit_id";
-    String TITEL = "_titel";
-    String MODIFIED = "_modified";
-    String OMSCHRIJVING = "_omschrijving";
-    String DATUM = "_datum";
-    String PERIODE = "_periode";
-    String STARTUUR = "_startuur";
-    String EINDUUR = "_einduur";
-    String TIJDSTIP_SORTERING = "_tijdstip_sortering";
-    String UIT_MET_VLIEG = "_uit_met_vlieg";
-    String IN_HET_GENTS = "_in_het_gents";
-    String AFBEELDING = "_afbeelding";
-    String DOVENTOLK = "_doventolk";
-    String ORGANISATIE = "_organisatie";
-    String ORGANISATOR_ID = "_organisatie_id";
-    String GENTS_INITIATIEF = "_gents_initiatief";
-    String VIDEOS = "_videos";
-    String ZOEKWOORDEN = "_zoekwoorden";
-    String MEER_INFO = "_meer_info";
-    String FESTIVAL = "_festival";
-    String GHENT_SELECTION = "_ghent_selection";
-    String URL = "_url";
-    String ORGANISATIE_WEBSITE = "_organisatie_website";
-    String GRATIS = "_gratis";
-    String APARTE_PRIJS_VVK = "_aparte_prijs_vvk";
-    String PRIJS = "_prijs";
-    String PRIJS_OMSCHRIJVING = "_prijs_omschrijving";
-    String PRIJS_VVK = "_prijs_vvk";
-    String PRIJS_VVK_OMSCHRIJVING = "_prijss_vvk_omschrijving";
-    String KORTING = "_korting";
-    String CATEGORIE_ID = "_categorie_id";
-    String CATEGORIE_TITEL = "_categorie_titel";
-    String TOEGANKELIJK_ROLSTOEL = "_toegankelijk_rolstoel";
-    String OVERKOEPELENDE_TITEL = "_overkoepelende_titel";
-    String OVERKOEPELENDE_OMSCHRIJVING = "_getOverkoepelende_omschrijving";
-    String LOCATIE_ID = "_locatie_id";
-    String LOCATIE_NAAM = "_locatie_naam";
-    String SUBLOCATIE = "_sublocatie";
-    String STRAAT = "_straat";
-    String HUISNUMMER = "_huisnummer";
-    String BUS = "_bus";
-    String POSTCODE = "_postcode";
-    String GEMEENTE = "_gemeente";
-    String LATITUDE = "_latitude";
-    String LONGITUDE = "_longitude";
-    String DAGKLAPPER = "_dagklapper";
+    String EVENT_ID = "_event_id";
+    String EVENT_NAAM = "_naam";
+    String EVENT_TYPE = "_event_type";
+    String EVENT_CONTACTPOINT_ID = "_contactpoint_id";
+    String EVENT_CONTRIBUTOR_TYPE = "_contributor_type";
+    String EVENT_CONTRIBUTOR_NAME = "_contributor_name";
+    String EVENT_BESCHRIJVING = "_beschrijving";
+    String EVENT_AFBEELDING_URL = "_afbeelding_url";
+    String EVENT_AFBEELDING_THUMBNAIL = "_afbeelding_thumbnail";
+    String EVENT_AFBEELDING_TITEL = "_afbeelding_titel";
+    String EVENT_TAAL = "_taal";
+    String EVENT_IS_ACCESSIBLE_FOR_FREE = "_is_accessible_for_free";
+    String EVENT_IS_PART_OF = "_is_part_of";
+    String EVENT_ROLSTOELTOEGANKELIJKHEID = "_rolstoeltoegankelijkheid";
+    String EVENT_KERNWOORDEN = "_kernwoorden";
+    String EVENT_LOCATIE_ID = "_locatie_Id";
+    String EVENT_STARTDATUM_LONG = "_startdatum_long";
+    String EVENT_STARTDATUM_SHORT = "_startdatum_short";
+    String EVENT_STARTUUR = "_startuur";
+    String EVENT_EINDUUR = "_einduur";
+    String EVENT_ORGANISATOR_ID = "_organisator_id";
+    String EVENT_CATEGORIE_ID = "_categorie_id";      // json categorie => 'theme'
+    String EVENT_WEBSITE_URL = "_website_url";
+    String EVENT_VIDEO_URL = "_video_url";
+    String EVENT_VIDEO_THUMBNAIL = "_video_thumbnail";
+    String EVENT_VIDEO_ONDERSCHRIFT = "_video_onderschrift";
+    String EVENT_PRIJS = "_prijs";
+    String EVENT_WISSELKOERS = "_wisselkoers";
+    String EVENT_PRIJS_OMSCHRIJVING = "_prijs_omschrijving";
+    String EVENT_VOORVERKOOPPRIJS = "_voorverkoopprijs";        // json => priceValidUntil, wordt enkel gebruikt indien dit niet NULL is
+    String EVENT_VERKRIJGBAARHEID = "_verkrijgbaarheid";        // json => availableAtOrFrom
+    String EVENT_KORTING = "_korting";                          // json => eligibleForDiscount
+
 
 
 }
